@@ -1,7 +1,14 @@
 from odoo import api, models, fields
+from datetime import date
+from datetime import timedelta
+from math import fabs
+from dateutil.relativedelta import relativedelta
 
 class Payslip(models.Model):
     _inherit = 'hr.payslip'
+
+    aguinaldo_acumulado_days = fields.Integer(compute="_compute_service_duration_display", string="Aguinaldo acumulado (días)", readonly=True)
+    aguinaldo_acumulado_months = fields.Integer(compute="_compute_service_duration_display", string="Aguinaldo acumulado (meses)", readonly=True)
 
     #Esta función nos permite acceder a las diferentes funciones necesarias para
     #los calculos especiales requeridos por la localización Nicaragua.
@@ -13,6 +20,20 @@ class Payslip(models.Model):
         'compute_aguinaldo': compute_aguinaldo,
         })
         return res
+
+    @api.depends("contract_id", "date_from", "date_to")
+    def _compute_service_duration_display(self):
+        for record in self:
+            service_until = record.date_to or fields.Date.today()
+
+            #PARA CALCULAR EL AGUINALDO
+            if record.date_to and service_until > record.date_from:
+                aguinaldo_days = relativedelta(service_until, record.date_from)
+                record.aguinaldo_acumulado_days = aguinaldo_days.days
+                record.aguinaldo_acumulado_months = aguinaldo_days.months
+            else:
+                record.aguinaldo_acumulado_days = 0
+                record.aguinaldo_acumulado_months = 0
 
 #CALCULO DE IR LABORAL PARA LOS SIGUIENTES ESCENARIOS
 # 1. Periodo Completo (Art. 19.1 RL822) e Incompleto (Art. 19.4 RL822)
