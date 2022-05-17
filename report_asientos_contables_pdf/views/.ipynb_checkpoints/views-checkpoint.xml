@@ -1,0 +1,104 @@
+<odoo>
+    <data>
+        <report id="report_asiento_contable_custom"
+                string="Asientos Contables Reportes"
+                model="account.move"
+                report_type="qweb-pdf"
+                name="report_asientos_contables_pdf.report_asiento_contable"
+        />
+        <template id="report_asiento_contable">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h5 style="text-align: left;">Asiento No. <strong><span t-field="o.name"/></strong></h5>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td style="text-align: center;">Fecha:</td>
+                                    <td style="text-align: center;">Creado por:</td>
+                                    <td style="text-align: center;">Creado el:</td>
+                                    <td style="text-align: center;">Estado:</td>
+
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;"><span t-field="o.date"/></td>
+                                    <td style="text-align: center;"><span t-field="o.create_uid"/></td>
+                                    <td style="text-align: center;"><span t-field="o.create_date"/></td>
+                                    <td style="text-align: center;"><t t-if="o.state==&quot;posted&quot;">Publicado</t><t t-else="">Sin Asentar</t></td>
+                                </tr>
+                            </table>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td style="text-align: left;">Referencia:</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;"><span t-field="o.ref"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;">Diario: <span t-field="o.journal_id"/></td>
+                                </tr>
+                            </table>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr >
+                                        <th >CUENTA</th>
+                                        <th >ETIQUETA</th>
+                                        <th>CUENTA ANALITICA</th>
+                                        <th>MONEDA DE IMPORTES</th>
+                                        <th>DEBE</th>
+                                        <th>HABER</th>
+                                    </tr>
+                                    </thead>
+                                 <tbody>
+                                    <t t-set="debe" t-value="0"/>
+                                    <t t-set="haber" t-value="0"/>
+                                    <tr t-foreach="o.line_ids" t-as="line">
+                                        <td><span t-field="line.account_id"/></td>
+                                        <td><span t-esc="line.name"/></td>
+                                        <td><span t-esc="line.analytic_account_id.display_name"/></td>
+                                        <td><span t-esc="line.amount_currency" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/></td>
+
+                                        <td>
+                                            <span t-esc="'{0:,.1f}'.format(line.debit)"/>
+<!--                                            <span t-esc="line.debit"/>-->
+                                        </td>
+                                        <td>
+                                            <span t-esc="'{0:,.1f}'.format(line.credit)"/>
+<!--                                            <span t-esc="line.credit"/>-->
+                                        </td>
+
+                                        <t t-set="debe" t-value="debe+line.debit"/>
+                                        <t t-set="haber" t-value="haber+line.credit"/>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: visible;"/>
+                                        <td style="border: visible;"/>
+                                        <td style="border: visible;"/>
+                                        <td style="border: visible;">TOTALES</td>
+                                        <td style="border: visible;">
+<!--                                            <span t-esc="debe"/>-->
+                                            <span t-esc="'{0:,.1f}'.format(debe)"/>
+                                        </td>
+                                        <td style="border: visible;">
+                                            <span t-esc="'{0:,.1f}'.format(haber)"/>
+<!--                                            <span t-esc="haber"/>-->
+                                        </td>
+                                    </tr>
+
+                                 </tbody>
+                            </table>
+
+                            <table class="table table-sm" style="margin-top: 100px;">
+                                <tr>
+                                    <td style="text-align: left;">Autorizado por _____________________</td>
+                                    <td style="text-align: left;">Revisado por _____________________</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

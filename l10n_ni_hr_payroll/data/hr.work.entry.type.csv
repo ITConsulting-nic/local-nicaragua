@@ -1,0 +1,9 @@
+id,name,code,sequence,is_leave,is_unforeseen,round_days,round_days_type
+l10n_ni_hr_payroll_work_entry_type.permiso_cgs,PERMISO CGS (DÍAS),CGS,101,TRUE,FALSE,HALF,DOWN
+l10n_ni_hr_payroll_work_entry_type.permiso_sgs_días,PERMISO SGS (DÍAS),SGD,102,TRUE,FALSE,HALF,DOWN
+l10n_ni_hr_payroll_work_entry_type.permiso_sgs_horas,PERMISO SGS (HORAS),SGH,103,TRUE,FALSE,NO,DOWN
+l10n_ni_hr_payroll_work_entry_type.vacaciones,VACACIONES PAGADAS (DÍAS),VAC,104,TRUE,FALSE,HALF,DOWN
+l10n_ni_hr_payroll_work_entry_type.enfermedad_comun,ENFERMEDAD COMÚN (DÍAS),ENF,105,TRUE,FALSE,NO,DOWN
+l10n_ni_hr_payroll_work_entry_type.accidente_comun,ACCIDENTE COMÚN (DÍAS),ACC,106,TRUE,FALSE,NO,DOWN
+l10n_ni_hr_payroll_work_entry_type.maternidad,MATERNIDAD (DÍAS),MAT,107,TRUE,FALSE,NO,DOWN
+l10n_ni_hr_payroll_work_entry_type.ausencia,AUSENCIA (DÍAS),AUS,108,TRUE,FALSE,NO,DOWN

@@ -1,0 +1,36 @@
+<odoo>
+    <record id="report_planilla_credito_iva" model="ir.ui.view">
+        <field name="name">Reporte Planilla Credito</field>
+        <field name="model">planilla.credito.iva</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <group>
+                    <group>
+                        <field name="date_init"/>
+                        <field name="date_end"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generate_xls" string="Generar XLS" type="object" class="oe_highlight" />
+                    o
+
+                    <button string="Cancelar" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id='action_planilla_credito_wizard' model='ir.actions.act_window'>
+        <field name="name">Reporte Planilla Crédito IVA</field>
+        <field name="res_model">planilla.credito.iva</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_planilla_credito_wizard_header" parent="account.menu_finance_reports" name="Ni Reportes Vet" sequence="1"/>
+    
+    <menuitem id="menu_planilla_credito_wizard" action="action_planilla_credito_wizard" parent="l10n_ni_reportes_vet.menu_planilla_credito_wizard_header" name="Reporte Planilla Crédito IVA" sequence="1"/>
+
+
+
+</odoo>

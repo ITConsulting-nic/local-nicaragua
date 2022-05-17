@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_retenciones_nomina_select_popup_model_popup" model="ir.ui.view">
+        <field name="name">Reporte de Retenciones IR Laboral</field>
+        <field name="model">itc.planilla.retencion.report</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <div colspan="4">Está seguro que desea imprimir el reporte para los procesamientos seleccionados</div>
+
+                <footer>
+                    <button name="print_excel_report" string="Imprimir"
+                            type="object" class="oe_highlight" />
+                    o
+
+                    <button string="Cancelar" class="oe_link"
+                            special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="act_report_retenciones_nomina_" model="ir.actions.act_window">
+        <field name="name">Reporte de Retenciones IR Laboral</field>
+        <field name="res_model">itc.planilla.retencion.report</field>
+        <field name="binding_model_id" ref="model_hr_payslip_run"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="itc_planilla_retencion_fuente.report_retenciones_nomina_select_popup_model_popup"/>
+    </record>
+</odoo>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--<record id="add_text_amount_to_invoice_form" model="ir.ui.view">-->
+        <!--<field name="name">add.text.amount.to.invoice.form</field>-->
+        <!--<field name="model">account.move</field>-->
+        <!--<field name="inherit_id" ref="account.view_move_form"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='invoice_date']" position="after">-->
+                <!--<field name="text_amount"/>-->
+                <!--<field name="type_currencychange"/>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+
+
+
+    <!--<record id="add_text_amount_to_pyment_form" model="ir.ui.view">-->
+        <!--<field name="name">add.text.amount.to.payment.form</field>-->
+        <!--<field name="model">account.payment</field>-->
+        <!--<field name="inherit_id" ref="account.view_account_payment_form"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='payment_date']" position="after">-->
+                    <!--<field name="text_amount"/>-->
+                    <!--<field name="type_currencychange"/>-->
+                    <!--<field name="amount_number_format"/>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+
+
+
+    <record id="add_text_amount_to_purchase_form" model="ir.ui.view">
+        <field name="name">add.text.amount.to.purchase.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="text_amount"/>
+                    <!--<field name="type_currencychange"/>-->
+                    
+            </xpath>
+        </field>
+    </record>
+
+    <record id="add_text_amount_to_budget_form" model="ir.ui.view">
+        <field name="name">add.text.amount.to.budget.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="text_amount"/>
+                    <!--<field name="type_currencychange"/>-->
+                    
+            </xpath>
+        </field>
+    </record>
+
+
+    <!--<record id="add_text_amount_to_invoice_supplier_form" model="ir.ui.view">-->
+        <!--<field name="name">add.text.amount.to.invoice.supplier.form</field>-->
+        <!--<field name="model">account.move</field>-->
+        <!--<field name="inherit_id" ref="account.invoice_supplier_form"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='date_due']" position="after">-->
+                <!--<field name="text_amount"/>-->
+                <!--<field name="type_currencychange"/>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+
+
+
+
+</odoo>

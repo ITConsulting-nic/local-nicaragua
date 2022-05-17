@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!--
+      Etiquetas para identificar en DMI-V2-PLANILLA DE INGRESOS
+  -->
+    <record id="tax_report_planilla_ingresos" model="account.tax.report">
+        <field name="name">DMI-V2-PLANILLA DE INGRESOS</field>
+        <field name="country_id" ref="base.ni"/>
+    </record>
+
+    <record id="l10n_ni_dmi_pi_2" model="account.tax.report.line">
+        <field name="name">Base Imponible para determinar el IVA</field>
+        <field name="report_id" ref="tax_report_planilla_ingresos"/>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="l10n_ni_dmi_pi_3" model="account.tax.report.line">
+        <field name="name">Ingresos gravados del mes (tasa 15%)</field>
+        <field name="code">f03</field>
+        <field name="tag_name">03</field>
+        <field name="report_id" ref="tax_report_planilla_ingresos"/>
+        <field name="parent_id" ref="l10n_ni_dmi_pi_2"/>
+        <field name="sequence">3</field>
+    </record>
+
+    <record id="l10n_ni_dmi_pi_4" model="account.tax.report.line">
+        <field name="name">Ingresos del mes por distribución de  energía eléctrica subsidiada (tasa 7%)</field>
+        <field name="code">f04</field>
+        <field name="tag_name">04</field>
+        <field name="report_id" ref="tax_report_planilla_ingresos"/>
+        <field name="parent_id" ref="l10n_ni_dmi_pi_2"/>
+        <field name="sequence">4</field>
+    </record>
+
+    <record id="l10n_ni_dmi_pi_5" model="account.tax.report.line">
+        <field name="name">Ingresos por exportación de bienes tangibles</field>
+        <field name="code">f05</field>
+        <field name="tag_name">05</field>
+        <field name="report_id" ref="tax_report_planilla_ingresos"/>
+        <field name="parent_id" ref="l10n_ni_dmi_pi_2"/>
+        <field name="sequence">5</field>
+    </record>
+
+    <record id="l10n_ni_dmi_pi_6" model="account.tax.report.line">
+        <field name="name">Ingresos por exportación de bienes intangibles</field>
+        <field name="code">f06</field>
+        <field name="tag_name">06</field>
+        <field name="report_id" ref="tax_report_planilla_ingresos"/>
+        <field name="parent_id" ref="l10n_ni_dmi_pi_2"/>
+        <field name="sequence">6</field>
+    </record>
+
+    <record id="l10n_ni_dmi_pi_7" model="account.tax.report.line">
+        <field name="name">Ingresos del mes exentos</field>
+        <field name="code">f07</field>
+        <field name="tag_name">07</field>
+        <field name="report_id" ref="tax_report_planilla_ingresos"/>
+        <field name="parent_id" ref="l10n_ni_dmi_pi_2"/>
+        <field name="sequence">7</field>
+    </record>
+
+    <record id="l10n_ni_dmi_pi_8" model="account.tax.report.line">
+        <field name="name">Ingresos del mes exonerados</field>
+        <field name="code">f08</field>
+        <field name="tag_name">08</field>
+        <field name="report_id" ref="tax_report_planilla_ingresos"/>
+        <field name="parent_id" ref="l10n_ni_dmi_pi_2"/>
+        <field name="sequence">8</field>
+    </record>
+
+    <record id="l10n_ni_dmi_pi_9" model="account.tax.report.line">
+        <field name="name">Base Imponible para determinar ISC</field>
+        <field name="report_id" ref="tax_report_planilla_ingresos"/>
+        <field name="sequence">9</field>
+    </record>
+
+    <record id="l10n_ni_dmi_pi_10" model="account.tax.report.line">
+        <field name="name">Ingresos  por enajenación de productos derivados del petróleo</field>
+        <field name="code">f09</field>
+        <field name="tag_name">09</field>
+        <field name="report_id" ref="tax_report_planilla_ingresos"/>
+        <field name="parent_id" ref="l10n_ni_dmi_pi_9"/>
+        <field name="sequence">9</field>
+    </record>
+
+    <record id="l10n_ni_dmi_pi_11" model="account.tax.report.line">
+        <field name="name">Ingresos  por enajenación de azúcar</field>
+        <field name="code">f010</field>
+        <field name="tag_name">010</field>
+        <field name="report_id" ref="tax_report_planilla_ingresos"/>
+        <field name="parent_id" ref="l10n_ni_dmi_pi_9"/>
+        <field name="sequence">10</field>
+    </record>
+
+<!--
+    Etiquetas para identificar en DMI-V2-PLANILLA DE RETENCIONES EN LA FUENTE
+-->
+  <record id="tax_report_planilla_retenciones" model="account.tax.report">
+      <field name="name">DMI-V2-PLANILLA DE RETENCIONES EN LA FUENTE</field>
+      <field name="country_id" ref="base.ni"/>
+  </record>
+
+
+
+</odoo>

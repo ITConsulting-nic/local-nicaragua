@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="l10n_ni_hr_employee_view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <notebook>
+                    <page string="Nómina Nicaragua">
+                        <group>
+                          <group string="Datos generales" >
+                              <field name="num_cedula"/>
+                              <field name="num_inss"/>
+                              <field name="primer_nombre"/>
+                              <field name="segundo_nombre"/>
+                              <field name="primer_apellido"/>
+                              <field name="segundo_apellido"/>
+                          </group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="l10n_ni_hr_contract_view">
+            <field name="name">hr.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+            <field name="arch" type="xml">
+                <notebook>
+                    <page string="Nómina Nicaragua">
+                        <group>
+                          <field name="ctrabajo"/>
+                          <field name="saldo_ingreso_bruto"/>
+                          <field name="saldo_ir"/>
+                          <field name="saldo_ir_fecha"/>
+                          <field name="saldo_ir_no_quincenas"/>
+                          <field name="nominas_pagadas"/>                          
+                        </group>
+                        <group>
+                          <field name="pension_alimenticia"/>
+                          <field name="pagar_antiguedad"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="l10n_ni_hr_centro_inss_view" model="ir.ui.view">
+            <field name="name">Centro INSS</field>
+            <field name="model">employee.centro.inss</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_l10n_ni_hr_centro_inss"
+                model="ir.actions.act_window">
+            <field name="name">Centro INSS</field>
+            <field name="res_model">employee.centro.inss</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="l10n_ni_hr_centro_inss_view"/>
+        </record>
+
+        <menuitem id="l10n_ni_hr_centro_inss"
+                  name="Centro de Trabajo(INSS)"
+                  action="action_l10n_ni_hr_centro_inss"
+                  parent="hr.menu_human_resources_configuration"
+                  sequence="103"/>
+    </data>
+</odoo>

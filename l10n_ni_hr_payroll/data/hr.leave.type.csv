@@ -1,0 +1,9 @@
+id,code,sequence,name,request_unit,allocation_type,leave_notif_subtype_id/id,responsible_id/id,allocation_notif_subtype_id/id,create_calendar_meeting,color_name,leave_validation_type,work_entry_type_id/id
+l10n_ni_hr_leave_type.permiso_cgs,CGS,101,PERMISO CGS (DÍAS),half_day,no,hr_holidays.mt_leave,base.user_admin,hr_holidays.mt_leave_allocation,TRUE,lightgreen,hr,l10n_ni_hr_payroll_work_entry_type.permiso_cgs
+l10n_ni_hr_leave_type.permiso_sgs_días,SGD,102,PERMISO SGS (DÍAS),half_day,no,hr_holidays.mt_leave,base.user_admin,hr_holidays.mt_leave_allocation,TRUE,blue,hr,l10n_ni_hr_payroll_work_entry_type.permiso_sgs_días
+l10n_ni_hr_leave_type.permiso_sgs_horas,SGH,103,PERMISO SGS (HORAS),half_day,no,hr_holidays.mt_leave,base.user_admin,hr_holidays.mt_leave_allocation,TRUE,lightblue,hr,l10n_ni_hr_payroll_work_entry_type.permiso_sgs_horas
+l10n_ni_hr_leave_type.vacaciones,VAC,104,VACACIONES DESCANSADAS (DÍAS),half_day,no,hr_holidays.mt_leave,base.user_admin,hr_holidays.mt_leave_allocation,TRUE,violet,hr,l10n_ni_hr_payroll_work_entry_type.vacaciones
+l10n_ni_hr_leave_type.enfermedad_comun,ENF,105,ENFERMEDAD COMÚN (DÍAS),day,no,hr_holidays.mt_leave_sick,base.user_admin,hr_holidays.mt_leave_allocation,TRUE,brown,hr,l10n_ni_hr_payroll_work_entry_type.enfermedad_comun
+l10n_ni_hr_leave_type.accidente_comun,ACC,106,ACCIDENTE COMÚN (DÍAS),day,no,hr_holidays.mt_leave_sick,base.user_admin,hr_holidays.mt_leave_allocation,TRUE,lavender,hr,l10n_ni_hr_payroll_work_entry_type.accidente_comun
+l10n_ni_hr_leave_type.maternidad,MAT,107,MATERNIDAD (DÍAS),day,no,hr_holidays.mt_leave,base.user_admin,hr_holidays.mt_leave_allocation,TRUE,lightpink,hr,l10n_ni_hr_payroll_work_entry_type.maternidad
+l10n_ni_hr_leave_type.ausencia,AUS,108,AUSENCIA (DÍAS),half_day,no,hr_holidays.mt_leave_unpaid,base.user_admin,hr_holidays.mt_leave_allocation,TRUE,red,hr,l10n_ni_hr_payroll_work_entry_type.ausencia

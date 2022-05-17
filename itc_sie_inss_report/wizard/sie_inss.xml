@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_sie_inss_select_popup_model_view" model="ir.ui.view">
+        <field name="name">Reporte SIE INSS</field>
+        <field name="model">itc.sie_inss.report</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <div colspan="4">Formato de exportación CSV['Coma Separated Value']</div>
+
+                <footer>
+                    <button name="print_csv_report" string="Imprimir CSV"
+                            type="object" class="oe_highlight" />
+                    o
+
+                    <button string="Cancelar" class="oe_link"
+                            special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="act_report_sie_inss_" model="ir.actions.act_window">
+        <field name="name">Reporte SIE INSS</field>
+        <field name="res_model">itc.sie_inss.report</field>
+        <field name="binding_model_id" ref="model_hr_payslip_run"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="itc_sie_inss_report.report_sie_inss_select_popup_model_view"/>
+    </record>
+</odoo>

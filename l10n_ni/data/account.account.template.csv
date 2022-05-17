@@ -1,0 +1,152 @@
+id,name,code,user_type_id/id,chart_template_id/id,reconcile
+a.11010101,"CAJA GENERAL M. N.",11010101,account.data_account_type_liquidity,l10n_ni.l10n_ni_chart_template,FALSE
+a.11010102,"TRANSITORIA PARA TRANSFERENCIA DE FONDOS",11010102,account.data_account_type_liquidity,l10n_ni.l10n_ni_chart_template,FALSE
+a.11010201,"CAJA CHICA M.N.",11010201,account.data_account_type_liquidity,l10n_ni.l10n_ni_chart_template,FALSE
+a.11010301,"BANCO ""(NOMBRE DEL BANCO)""",11010301,account.data_account_type_liquidity,l10n_ni.l10n_ni_chart_template,FALSE
+a.11020101,"CUENTAS POR COBRAR CLIENTES",11020101,account.data_account_type_liquidity,l10n_ni.l10n_ni_chart_template,FALSE
+a.11020102,"DETERIORO DE LAS CUENTAS POR COBRAR",11020102,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11020201,"CUENTAS POR COBRAR COLABORADORES",11020201,account.data_account_type_receivable,l10n_ni.l10n_ni_chart_template,TRUE
+a.11020202,"CUENTAS POR COBRAR PARTES RELACIONADAS",11020202,account.data_account_type_receivable,l10n_ni.l10n_ni_chart_template,TRUE
+a.11020203,"CUENTAS POR COBRAR VARIAS",11020203,account.data_account_type_receivable,l10n_ni.l10n_ni_chart_template,TRUE
+a.11030101,"ANTICIPOS A PROVEEDORES",11030101,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11040101,"MATERIAS PRIMAS",11040101,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11040201,"PRODUCTO TERMINADO",11040201,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11040301,"INVENTARIO EN TRANSITO",11040301,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11050101,"SEGUROS Y FIANZAS",11050101,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11050102,"ALQUILER",11050102,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11050103,"PUBLICIDAD",11050103,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11060101,"IVA POR COBRAR - CREDITO FISCAL",11060101,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11060201,"IMPUESTOS MUNICIPALES",11060201,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11060301,"RETENCIÓN A CUENTA DEL IR DE RENTA DEL TRABAJO",11060301,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11060302,"RETENCIÓN A CUENTA DEL  IR DE RENTAS DE ACTIVIDADES ECONÓMICAS",11060302,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11060303,"RETENCIÓN DEFINITIVA DE RENTA DEL TRABAJO",11060303,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11060304,"RETENCIÓN DEFINITIVA DE RENTAS DE ACTIVIDADES ECONÓMICAS",11060304,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11060305,"RETENCIÓN DEFINITIVA DE RENTAS DE CAPITAL Y GANANCIAS Y PÉRDIDAS DE CAPITAL",11060305,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.11060306,"RETENCIÓN DEFINITIVA DE OTROS TIPOS DE RENTAS DE CAPITAL Y GANANCIAS Y PÉRDIDAS DE CAPITAL",11060306,account.data_account_type_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12010101,"BIENES INMUEBLES  TERRENOS Y EDIFICIOS",12010101,account.data_account_type_fixed_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12010201,"BIENES MOBILIARIOS Y EQUIPOS",12010201,account.data_account_type_fixed_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12010301,"EQUIPOS DE  TRANSPORTE",12010301,account.data_account_type_fixed_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12010401,"EQUIPOS Y PLANTA DE PROCESAMIENTO",12010401,account.data_account_type_fixed_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12010501,"CONSTRUCCIONES Y PROYECTOS EN PROCESO",12010501,account.data_account_type_fixed_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12010601,"DEPRECIACIÓN ACUMULADA",12010601,account.data_account_type_fixed_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12020101,"MARCAS Y PATENTES",12020101,account.data_account_type_non_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12020102,"SOFTWARE (APLICACIONES INFORMÁTICAS)",12020102,account.data_account_type_non_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12020103,"LICENCIAS",12020103,account.data_account_type_non_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12030101,"GASTOS DE INSTALACIÓN",12030101,account.data_account_type_non_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12030102,"HONORARIOS",12030102,account.data_account_type_non_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12030103,"SERVICIOS",12030103,account.data_account_type_non_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.12030104,"SUSCRIPCIÓNES Y MEMBRESIAS",12030104,account.data_account_type_non_current_assets,l10n_ni.l10n_ni_chart_template,FALSE
+a.21010101,"PROVEEDORES NACIONALES",21010101,account.data_account_type_payable,l10n_ni.l10n_ni_chart_template,TRUE
+a.21010102,"PROVEEDORES EXTRANJEROS",21010102,account.data_account_type_payable,l10n_ni.l10n_ni_chart_template,TRUE
+a.21020101,"ENTIDAD ""(NOMBRE DE LA ENTIDAD)""",21020101,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21020102,"TARJETA DE CRÉDITO ""(NOMBRE DEL BANCO)""",21020102,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21030101,"SUELDOS Y SALARIOS",21030101,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21030102,"VACACIONES",21030102,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21030103,"TRECEAVO MES",21030103,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21030104,"INDEMNIZACIÓN",21030104,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21030105,"INSS PATRONAL",21030105,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21030106,"INSS LABORAL",21030106,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21030107,"INATEC",21030107,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21030108,"COMISIONES POR PAGAR",21030108,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21030109,"OTROS",21030109,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21040101,"IVA POR PAGAR - DÉBITO FISCAL",21040101,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21040201,"IMPUESTOS MUNICIPLES",21040201,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21040301,"RETENCIÓN A CUENTA DEL IR DE RENTA DEL TRABAJO",21040301,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21040302,"RETENCIÓN A CUENTA DEL  IR DE RENTAS DE ACTIVIDADES ECONÓMICAS",21040302,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21040303,"RETENCIÓN DEFINITIVA DE RENTA DEL TRABAJO",21040303,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21040304,"RETENCIÓN DEFINITIVA DE RENTAS DE ACTIVIDADES ECONÓMICAS",21040304,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21040305,"RETENCIÓN DEFINITIVA DE RENTAS DE CAPITAL Y GANANCIAS Y PÉRDIDAS DE CAPITAL",21040305,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21040306,"RETENCIÓN DEFINITIVA DE OTROS TIPOS DE RENTAS DE CAPITAL Y GANANCIAS Y PÉRDIDAS DE CAPITAL",21040306,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.21050101,"ANTICIPOS RECIBIDOS DE CLIENTES",21050101,account.data_account_type_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.22010101,"ENTIDAD ""(NOMBRE DE LA ENTIDAD)""",22010101,account.data_account_type_non_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.22020101,"OTRAS CUENTAS POR PAGAR",22020101,account.data_account_type_non_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.22020102,"DIVIDENDOS POR PAGAR",22020102,account.data_account_type_non_current_liabilities,l10n_ni.l10n_ni_chart_template,FALSE
+a.31010101,"CAPITAL AUTORIZADO",31010101,account.data_account_type_equity,l10n_ni.l10n_ni_chart_template,FALSE
+a.31010102,"CAPITAL SOCIAL SUSCRITO Y PAGADO",31010102,account.data_account_type_equity,l10n_ni.l10n_ni_chart_template,FALSE
+a.31010103,"CAPITAL SOCIAL SUSCRITO Y NO PAGADO",31010103,account.data_account_type_equity,l10n_ni.l10n_ni_chart_template,FALSE
+a.31010201,"APORTES PARA INCREMENTOS DE CAPITAL",31010201,account.data_account_type_equity,l10n_ni.l10n_ni_chart_template,FALSE
+a.31010202,"APORTES PENDIENTES DE CAPITALIZACIÓN",31010202,account.data_account_type_equity,l10n_ni.l10n_ni_chart_template,FALSE
+a.32010101,"RESERVA LEGAL",32010101,account.data_account_type_equity,l10n_ni.l10n_ni_chart_template,FALSE
+a.32010102,"RESERVA VOLUNTARIA",32010102,account.data_account_type_equity,l10n_ni.l10n_ni_chart_template,FALSE
+a.32010103,"OTRAS RESERVAS",32010103,account.data_account_type_equity,l10n_ni.l10n_ni_chart_template,FALSE
+a.33010101,"RESULTADO DEL PERIODO ACTUAL",33010101,account.data_unaffected_earnings,l10n_ni.l10n_ni_chart_template,FALSE
+a.33010201,"RESULTADOS DE PERIODOS ANTERIORES",33010201,account.data_account_type_equity,l10n_ni.l10n_ni_chart_template,FALSE
+a.33010301,"AJUSTES RESULTADOS DE PERIODOS ANTERIORES",33010301,account.data_account_type_equity,l10n_ni.l10n_ni_chart_template,FALSE
+a.41010101,"INGRESOS POR VENTA DE BIENES",41010101,account.data_account_type_revenue,l10n_ni.l10n_ni_chart_template,FALSE
+a.41010201,"INGRESOS POR VENTA DE SERVICIOS",41010201,account.data_account_type_revenue,l10n_ni.l10n_ni_chart_template,FALSE
+a.42010101,"OTROS INGRESOS",42010101,account.data_account_type_other_income,l10n_ni.l10n_ni_chart_template,FALSE
+a.42010102,"INGRESOS POR VARIACION CAMBIARIA",42010102,account.data_account_type_other_income,l10n_ni.l10n_ni_chart_template,FALSE
+a.42010103,"GANANCIA EN VENTA DE ACTIVOS",42010103,account.data_account_type_other_income,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010101,"SALARIOS",51010101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010102,"ALIMENTACIÓN",51010102,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010103,"TRANSPORTE",51010103,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010104,"HORAS EXTRAS",51010104,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010105,"COMISIONES",51010105,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010106,"INCENTIVOS",51010106,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010107,"VACACIONES",51010107,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010108,"TRECEAVO MES",51010108,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010109,"INDEMNIZACIÓN",51010109,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010110,"UNIFORMES",51010110,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010111,"SEGUROS",51010111,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010112,"GASTOS MÉDICOS",51010112,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51010113,"CAPACITACIÓN",51010113,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020101,"ENERGIA ELECTRICA",51020101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020102,"AGUA Y ALCANTARILLADO",51020102,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020103,"INTERNET",51020103,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020104,"CELULAR",51020104,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020105,"TELEFONO FIJO",51020105,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020106,"SERVICIO DE AGENCIA",51020106,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020107,"PUBLICIDAD",51020107,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020108,"COMBUSTIBLE",51020108,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020109,"HOSPEDAJES",51020109,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020110,"PARQUEO",51020110,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020111,"PEAJE",51020111,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020112,"MATERIALES DE HIGIENE Y SEGURIDAD",51020112,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020113,"PAPELERIA Y UTILES DE OFICINA",51020113,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020114,"MATERIALES DE SEGURIDAD",51020114,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020115,"ALQUILER",51020115,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020116,"VIGILANCIA",51020116,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020117,"ASEO Y LIMPIEZA",51020117,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020118,"SUSCRIPCIÓNES Y MEMBRESIAS",51020118,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020119,"GASTOS LEGALES",51020119,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020120,"SERVICIOS PROFESIONALES",51020120,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020121,"DONACIONES",51020121,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020122,"GASTOS DE REPRESENTACIÓN",51020122,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51020123,"DIVERSOS",51020123,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51030101,"MTO. Y REP. EDIFICIO",51030101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51030102,"MTO. Y REP. VEHÍCULO",51030102,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51030103,"MTO. Y REP. EQUIPO DE REPARTO",51030103,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51030104,"MTO. Y REP. MOBILIARIO Y EQUIPO DE OFICINAS",51030104,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51030105,"MTO. Y REP. EQUIPO DE CÓMPUTO",51030105,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51030106,"MTO. Y REP. OTROS EQUIPOS",51030106,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51040101,"GASTOS POR DEPRECIACIÓN EDIFICIO",51040101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51040102,"GASTOS POR DEPRECIACIÓN VEHÍCULOS",51040102,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51040103,"GASTOS POR DEPRECIACIÓN EQUIPOS DE REPARTO",51040103,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51040104,"GASTOS POR DEPRECIACIÓN MOBILIARIO Y EQUIPO DE OFICINA",51040104,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51040105,"GASTOS POR DEPRECIACIÓN EQUIPO DE CÓMPUTO",51040105,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51040106,"GASTOS POR DEPRECIACIÓN OTROS EQUIPOS",51040106,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51050101,"PÉRDIDA POR CUENTAS INCOBRABLES",51050101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51060101,"INATEC",51060101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51060102,"INSS PATRONAL",51060102,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51070101,"SEGURO DE MERCADERÍA",51070101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51070102,"SEGURO DE EDIFICIO",51070102,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51070103,"SEGURO VEHICULAR",51070103,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51070104,"SEGURO EMPLEADOS",51070104,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51080101,"IMPUESTO MENSUAL DE INGRESOS (ALCALDÍAS)",51080101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51080102,"IMPUESTOS DE BASURA",51080102,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51080103,"EMISIÓN DE GASES",51080103,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51080104,"RODAMIENTO",51080104,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51080105,"INSPECCIÓN MECÁNICA",51080105,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51080106,"MATRICULA",51080106,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51080107,"IMPUESTO DE BIENES INMUEBLES (IBI)",51080107,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51090101,"GASTOS DE AMORTIZACIÓN",51090101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51100101,"MULTAS Y RECARGOS FISCALES",51100101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51110101,"PERDIDAS POR VARIACION CAMBIARIA",51110101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51110102,"MANTENIMIENTO DE VALOR",51110102,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51110103,"CARGOS BANCARIOS",51110103,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51110104,"COMISIONES BANCARIAS",51110104,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51110105,"GASTOS POR AJUSTES MONETARIOS",51110105,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51110106,"INTERESES SOBRE PRESTAMOS CORRIENTES",51110106,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51110107,"OTROS GASTOS FINANCIEROS",51110107,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.51120101,"OTROS GASTOS",51120101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE
+a.61010101,"COSTO DIRECTO DE VENTAS",61010101,account.data_account_type_expenses,l10n_ni.l10n_ni_chart_template,FALSE

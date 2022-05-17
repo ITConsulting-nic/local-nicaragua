@@ -1,0 +1,21 @@
+id,name,hours_per_day,tz,full_time_required_hours,attendance_ids/id,attendance_ids/name,attendance_ids/dayofweek,attendance_ids/day_period,attendance_ids/hour_from,attendance_ids/hour_to,attendance_ids/work_entry_type_id/id,global_leave_ids/id,global_leave_ids/name,global_leave_ids/date_from,global_leave_ids/date_to,global_leave_ids/work_entry_type_id/id
+l10n_ni_resource.resource_calendar_std,Estándar 48h / semana,8,America/Managua,48,l10n_ni_01,Lunes Mañana,0,morning,8,12,hr_work_entry.work_entry_type_attendance,l10n_ni_01,Año nuevo,2021-01-01 00:00:00,2021-01-01 23:59:59,hr_work_entry_contract.work_entry_type_leave
+,,,,,l10n_ni_02,Lunes Tarde,0,afternoon,13,17,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,l10n_ni_03,Martes Mañana,1,morning,8,12,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,l10n_ni_04,Martes Tarde,1,afternoon,13,17,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,l10n_ni_05,Miércoles Mañana,2,morning,8,12,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,l10n_ni_06,Miércoles Tarde,2,afternoon,13,17,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,l10n_ni_07,Jueves Mañana,3,morning,8,12,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,l10n_ni_08,Jueves Tarde,3,afternoon,13,17,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,l10n_ni_09,Viernes Mañana,4,morning,8,12,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,l10n_ni_10,Viernes Tarde,4,afternoon,13,17,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,l10n_ni_11,Sábado Mañana,5,morning,8,12,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,l10n_ni_12,Sábado Tarde,5,afternoon,13,17,hr_work_entry.work_entry_type_attendance,,,,,
+,,,,,,,,,,,,l10n_ni_02,Jueves Santo,2021-04-01 00:00:00,2021-04-01 23:59:59,hr_work_entry_contract.work_entry_type_leave
+,,,,,,,,,,,,l10n_ni_03,Viernes Santo,2021-04-02 00:00:00,2021-04-02 23:59:59,hr_work_entry_contract.work_entry_type_leave
+,,,,,,,,,,,,l10n_ni_04,Día del Trabajador,2021-05-01 00:00:00,2021-05-01 23:59:59,hr_work_entry_contract.work_entry_type_leave
+,,,,,,,,,,,,l10n_ni_05,Día de la Revolución Sandinista,2021-07-19 00:00:00,2021-07-19 23:59:59,hr_work_entry_contract.work_entry_type_leave
+,,,,,,,,,,,,l10n_ni_06,Batalla de San Jacinto,2021-09-14 00:00:00,2021-09-14 23:59:59,hr_work_entry_contract.work_entry_type_leave
+,,,,,,,,,,,,l10n_ni_07,Día de la Independencia,2021-09-15 00:00:00,2021-09-15 23:59:59,hr_work_entry_contract.work_entry_type_leave
+,,,,,,,,,,,,l10n_ni_08,Concepción de María,2021-12-08 00:00:00,2021-12-08 23:59:59,hr_work_entry_contract.work_entry_type_leave
+,,,,,,,,,,,,l10n_ni_09,Navidad,2021-12-25 00:00:00,2021-12-25 23:59:59,hr_work_entry_contract.work_entry_type_leave

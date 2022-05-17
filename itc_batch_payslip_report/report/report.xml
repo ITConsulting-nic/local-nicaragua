@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report 
+            id="action_print_batch_payslip"
+            string="Batch Payslip"
+            model="wizard.batch.payslip.report" 
+            report_type="qweb-pdf"
+            file="itc_batch_payslip_report.report_batch_payslip_template"
+            name="itc_batch_payslip_report.report_batch_payslip_template"/>
+
+    </data>
+</odoo>

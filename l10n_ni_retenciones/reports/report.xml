@@ -1,0 +1,621 @@
+<odoo>
+     <record model="report.paperformat" id="paperformat_retenc_itc_reports">
+        <field name="name">paperformat.asset.retenc.itc.report</field>
+        <field name="default" eval="True"/>
+<!--        <field name="format">Letter</field>-->
+         <field name="format">custom</field>
+         <field name="page_height">140</field>
+         <field name="page_width">216</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">45</field>
+        <field name="margin_right">7</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report id = "report_custom_retenc_itc"
+            string = "RETENCIONES"
+            model ="account.move"
+            paperformat="paperformat_retenc_itc_reports"
+            file="RETENCIONES"
+            report_type = "qweb-pdf"
+            name="l10n_ni_retenciones.report_retenc_itc_template"
+
+    />
+
+
+    <template id = "report_retenc_itc_template">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.html_container">
+                <t t-if="o.external_lay_aux('report_retenciones') == 'true'">
+                    <t t-call="web.external_layout" style="font-size:15px">
+                        <div class="page" style="font-size:15px">
+                            <div style="margin-top:0px !important; text-align: center;"/>
+                                <div class="row">
+                                    <div class="col-6" style="padding:0px">
+                                        <span><b>Cliente:</b></span>  <span t-if="o.partner_id.name" t-field="o.partner_id.name"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                            <div class="col-12" style="padding:0px">
+                                 <b>Dirección:</b>
+                                    <t t-if="o.partner_id.street">
+                                        <span t-field="o.partner_id.street"/>
+                                    </t>
+                                    <t t-if="o.partner_id.street2 and o.partner_id.street">
+                                        ,
+                                    </t>
+                                    <t t-if="o.partner_id.street2">
+                                        <span t-field="o.partner_id.street2"/>
+                                    </t>
+                                    <t t-if="o.partner_id.state_id">
+                                        ,
+
+
+
+
+                                        <span t-field="o.partner_id.state_id.name"/>
+                                    </t>
+                                    <t t-if="o.partner_id.city">
+                                        ,
+
+
+
+
+                                        <span t-field="o.partner_id.city"/>
+                                    </t>
+                                    <t t-if="o.partner_id.country_id">
+                                        ,
+
+
+
+
+                                        <span t-field="o.partner_id.country_id.name"/>
+                                    </t>
+                            </div>
+                        </div>
+                                <div class="row">
+                                    <div class="col-5" style="padding:0px;white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">
+                                        <span><b>RUC:</b></span> <span t-if="o.partner_id.vat" t-field="o.partner_id.vat"/>
+                                    </div>
+                                    <!--<div class="col-5" style=" white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">-->
+
+                                    <!--</div>-->
+                                    <div class="col-3" style="padding:0px">
+                                        <span><b>Fecha:</b></span> <span t-field="o.invoice_date"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-5" style="padding:0px">
+                                        <span><b>Aplica a factura No.:</b></span>  <span t-if="o.payment_reference" t-esc="o.payment_reference"/>
+                                    </div>
+                                    <!--<div class="col-5" style=" white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">-->
+
+                                    <!--</div>-->
+                                    <div class="col-4" style="padding:0px">
+                                        <span><b>Base imponible:</b></span>
+                                        <span t-if="o.amount_untaxed">
+                                        <t t-if="o.currency_id.name == 'USD'">
+                                            <t t-set="tasa_cambio" t-value="o.get_tasa(o)"/>
+                                            <span>C$ </span> <span t-esc="'{0:,.2f}'.format(tasa_cambio)"/>
+                                        </t>
+                                            <t t-if="o.currency_id.name == 'NIO'">
+                                            <span>C$ </span> <span t-esc="'{0:,.2f}'.format(o.amount_untaxed)"/>
+                                        </t>
+                                        </span>
+
+<!--                                    <t t-if="o.currency_id.position == 'before'">-->
+<!--                                         <t t-esc="o.currency_id.symbol"/>-->
+<!--                                    </t>-->
+<!--                                      -->
+<!--&lt;!&ndash;                                      <span t-if="o.amount_untaxed" t-esc="'{0:,.2f}'.format(o.amount_untaxed)/tasa_cambio"/>&ndash;&gt;-->
+<!--                                   <t t-if="o.currency_id.position == 'after'">-->
+<!--                                         <t t-esc="o.currency_id.symbol"/>-->
+<!--                                    </t>-->
+                                    </div>
+
+                                </div>
+                                <div style="height:122px !important;padding:0px; margin-top:3px;">
+                                    <table class="table table-sm o_main_table" style="margin-top:5px;padding:0px  " name="invoice_line_table">
+
+                                        <thead style="padding:0px">
+                                            <tr style="padding:0px">
+                                                <th name="Cant" class="text-left" style="width: 33%">
+                                                    <span>Retenciones</span>
+                                                </th>
+                                                <th name="Cant" class="text-right" style="width: 33%">
+                                                    <span>% de retención</span>
+                                                </th>
+                                                <th name="Cant" class="text-right" style="width: 33%">
+                                                    <span>Monto retenido</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="invoice_tbody" style="padding:0px; font-size:13px">
+
+                                            <!--<t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.move_name, -l.id), reverse=True)"/>-->
+                                            <t t-foreach="o.apliqued_witholding" t-as="line">
+
+                                                <tr style="border:hidden !important">
+                                                    <!--<t t-if="not line.display_type" name="account_invoice_line_accountable">-->
+                                                    <td name="account_invoice_line_name" class="text-left" style="padding-left:1px; width:36px;padding-bottom:0px !important; padding-top:0px !important">
+                                                        <span t-field="line.tax"/>
+                                                    </td>
+                                                    <td class="text-right" style="padding-left:1px;width:24px;padding-bottom:0px !important; padding-top:0px !important">
+                                                        <span t-esc="'{0:,.2f}'.format(line.amount)"/>
+                                                    </td>
+                                                    <td class="text-right" style="width:360px; padding-bottom:0px !important; padding-top:0px !important">
+<!--                                                        <t t-if="o.currency_id.position == 'before'">-->
+<!--                                                            <span t-field="o.currency_id.symbol"/>-->
+<!--                                                        </t>-->
+                                                        <span>C$ </span>
+                                                        <span t-esc="'{0:,.2f}'.format(line.tds_amount)"/>
+<!--                                                        <t t-if="o.currency_id.position == 'after'">-->
+<!--                                                            <span t-field="o.currency_id.symbol"/>-->
+<!--                                                        </t>-->
+                                                    </td>
+
+                                                    <!--</t>-->
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                        </div>
+                    </t>
+                </t>
+                <t t-if="o.external_lay_aux('report_retenciones') == 'false'">
+                    <t t-call="web.basic_layout" style="font-size:15px">
+                      <div class="page" style="font-size:15px">
+                            <div style="margin-top:0px !important; text-align: center;"/>
+                                <div class="row">
+                                    <div class="col-6" style="padding:0px">
+                                        <span><b>Cliente:</b></span>  <span t-if="o.partner_id.name" t-field="o.partner_id.name"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                            <div class="col-12" style="padding:0px">
+                                 <b>Dirección:</b>
+                                    <t t-if="o.partner_id.street">
+                                        <span t-field="o.partner_id.street"/>
+                                    </t>
+                                    <t t-if="o.partner_id.street2 and o.partner_id.street">
+                                        ,
+                                    </t>
+                                    <t t-if="o.partner_id.street2">
+                                        <span t-field="o.partner_id.street2"/>
+                                    </t>
+                                    <t t-if="o.partner_id.state_id">
+                                        ,
+
+
+
+
+                                        <span t-field="o.partner_id.state_id.name"/>
+                                    </t>
+                                    <t t-if="o.partner_id.city">
+                                        ,
+
+
+
+
+                                        <span t-field="o.partner_id.city"/>
+                                    </t>
+                                    <t t-if="o.partner_id.country_id">
+                                        ,
+
+
+
+
+                                        <span t-field="o.partner_id.country_id.name"/>
+                                    </t>
+                            </div>
+                        </div>
+                                <div class="row">
+                                    <div class="col-5" style="padding:0px;white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">
+                                        <span><b>RUC:</b></span> <span t-if="o.partner_id.vat" t-field="o.partner_id.vat"/>
+                                    </div>
+                                    <!--<div class="col-5" style=" white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">-->
+
+                                    <!--</div>-->
+                                    <div class="col-3" style="padding:0px">
+                                        <span><b>Fecha:</b></span> <span t-field="o.invoice_date"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-5" style="padding:0px">
+                                        <span><b>Aplica a factura No.:</b></span>  <span t-if="o.payment_reference" t-esc="o.payment_reference"/>
+                                    </div>
+                                    <!--<div class="col-5" style=" white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">-->
+
+                                    <!--</div>-->
+                                    <div class="col-4" style="padding:0px">
+                                        <span><b>Base imponible:</b></span>
+                                        <span t-if="o.amount_untaxed">
+                                        <t t-if="o.currency_id.name == 'USD'">
+                                            <t t-set="tasa_cambio" t-value="o.get_tasa(o)"/>
+                                            <span>C$ </span> <span t-esc="'{0:,.2f}'.format(tasa_cambio)"/>
+                                        </t>
+                                            <t t-if="o.currency_id.name == 'NIO'">
+                                            <span>C$ </span> <span t-esc="'{0:,.2f}'.format(o.amount_untaxed)"/>
+                                        </t>
+                                        </span>
+
+<!--                                    <t t-if="o.currency_id.position == 'before'">-->
+<!--                                         <t t-esc="o.currency_id.symbol"/>-->
+<!--                                    </t>-->
+<!--                                      -->
+<!--&lt;!&ndash;                                      <span t-if="o.amount_untaxed" t-esc="'{0:,.2f}'.format(o.amount_untaxed)/tasa_cambio"/>&ndash;&gt;-->
+<!--                                   <t t-if="o.currency_id.position == 'after'">-->
+<!--                                         <t t-esc="o.currency_id.symbol"/>-->
+<!--                                    </t>-->
+                                    </div>
+
+                                </div>
+                                <div style="height:122px !important;padding:0px; margin-top:3px;">
+                                    <table class="table table-sm o_main_table" style="margin-top:5px;padding:0px  " name="invoice_line_table">
+
+                                        <thead style="padding:0px">
+                                            <tr style="padding:0px">
+                                                <th name="Cant" class="text-left" style="width: 33%">
+                                                    <span>Retenciones</span>
+                                                </th>
+                                                <th name="Cant" class="text-right" style="width: 33%">
+                                                    <span>% de retención</span>
+                                                </th>
+                                                <th name="Cant" class="text-right" style="width: 33%">
+                                                    <span>Monto retenido</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="invoice_tbody" style="padding:0px; font-size:13px">
+
+                                            
+                                            <!--<t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.move_name, -l.id), reverse=True)"/>-->
+                                            <t t-foreach="o.apliqued_witholding" t-as="line">
+
+                                                <tr style="border:hidden !important">
+                                                    <!--<t t-if="not line.display_type" name="account_invoice_line_accountable">-->
+                                                    <td name="account_invoice_line_name" class="text-left" style="padding-left:1px; width:36px;padding-bottom:0px !important; padding-top:0px !important">
+                                                        <span t-field="line.tax"/>
+                                                    </td>
+                                                    <td class="text-right" style="padding-left:1px;width:24px;padding-bottom:0px !important; padding-top:0px !important">
+                                                        <span t-esc="'{0:,.2f}'.format(line.amount)"/>
+                                                    </td>
+                                                    <td class="text-right" style="width:360px; padding-bottom:0px !important; padding-top:0px !important">
+<!--                                                        <t t-if="o.currency_id.position == 'before'">-->
+<!--                                                            <span t-field="o.currency_id.symbol"/>-->
+<!--                                                        </t>-->
+                                                        <span>C$ </span>
+                                                        <span t-esc="'{0:,.2f}'.format(line.tds_amount)"/>
+<!--                                                        <t t-if="o.currency_id.position == 'after'">-->
+<!--                                                            <span t-field="o.currency_id.symbol"/>-->
+<!--                                                        </t>-->
+                                                    </td>
+<!--                                                    <td class="text-right" style="width:360px; padding-bottom:0px !important; padding-top:0px !important">-->
+<!--                                                        <t t-if="o.currency_id.position == 'before'">-->
+<!--                                                            <span t-field="o.currency_id.symbol"/>-->
+<!--                                                        </t>-->
+<!--                                                        <span t-esc="'{0:,.2f}'.format(line.tds_amount)"/>-->
+<!--                                                        <t t-if="o.currency_id.position == 'after'">-->
+<!--                                                            <span t-field="o.currency_id.symbol"/>-->
+<!--                                                        </t>-->
+<!--                                                    </td>-->
+
+                                                    <!--</t>-->
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                        </div>
+
+                    </t>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+<!--     <template id = "report_retenc_itc_template">-->
+<!--        <t t-foreach="docs" t-as="o">-->
+<!--            <t t-call="web.html_container">-->
+<!--                <t t-if="o.external_lay_aux('report_retenciones') == 'true'">-->
+<!--                 <t t-call="web.external_layout">-->
+<!--                     <div class="page" style="font-size:15px">-->
+<!--                         <div style="margin-top:0px !important; text-align: center;"/>-->
+<!--                        <div class="row" >-->
+<!--                            <div class="col-3"/>-->
+<!--                            <div class="col-6"/>-->
+<!--                            <div class="col-2" style="font-size: 15px; padding-left:80px !important; ">-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-6" style="padding:0px">-->
+<!--                                <span><b>Cliente:</b></span>  <span t-if="o.partner_id.name" t-field="o.partner_id.name"/>-->
+<!--                            </div>-->
+
+
+<!--                        </div>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-12" style="padding:0px">-->
+<!--                                 <b>Dirección:</b>-->
+<!--                                    <t t-if="o.partner_id.street">-->
+<!--                                        <span t-field="o.partner_id.street"/>-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.street2 and o.partner_id.street">-->
+<!--                                        ,-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.street2">-->
+<!--                                        <span t-field="o.partner_id.street2"/>-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.state_id">-->
+<!--                                        ,-->
+
+
+
+
+<!--                                        <span t-field="o.partner_id.state_id.name"/>-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.city">-->
+<!--                                        ,-->
+
+
+
+
+<!--                                        <span t-field="o.partner_id.city"/>-->
+<!--                                    </t>-->
+<!--                                    <t t-if="o.partner_id.country_id">-->
+<!--                                        ,-->
+
+
+
+
+<!--                                        <span t-field="o.partner_id.country_id.name"/>-->
+<!--                                    </t>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row">-->
+<!--                                <div class="col-5" style="padding:0px;white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">-->
+<!--                                    <span><b>RUC:</b></span> <span t-if="o.partner_id.vat" t-field="o.partner_id.vat"/>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;<div class="col-5" style=" white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">&ndash;&gt;-->
+
+<!--                                &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                                <div class="col-3" style="padding:0px">-->
+<!--                                    <span><b>Fecha:</b></span> <span t-field="o.invoice_date"/>-->
+<!--                                </div>-->
+
+<!--                            </div>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-5" style="padding:0px;white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">-->
+<!--                                    <span><b>Aplica a factura No.:</b></span>  <span t-if="o.payment_reference" t-esc="o.payment_reference"/>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;<div class="col-5" style=" white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">&ndash;&gt;-->
+
+<!--                                &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                                <div class="col-3" style="padding:0px">-->
+<!--                                    <span><b>Base imponible:</b></span>-->
+<!--                                <t t-if="o.currency_id.position == 'before'">-->
+<!--                                     <t t-esc="o.currency_id.symbol"/>-->
+<!--                                </t>-->
+<!--                                  <span t-if="o.amount_untaxed" t-esc="'{0:,.2f}'.format(o.amount_untaxed)"/>-->
+<!--                               <t t-if="o.currency_id.position == 'after'">-->
+<!--                                     <t t-esc="o.currency_id.symbol"/>-->
+<!--                                </t>-->
+<!--                                </div>-->
+
+
+
+<!--                            <div class="col-12" style="padding:0px">-->
+
+<!--                            </div>-->
+
+<!--                        </div>-->
+<!--                         <div style="height:122px !important;padding:0px; margin-top:3px;">-->
+<!--                        <table class="table table-sm o_main_table" style="margin-top:5px;padding:0px  " name="invoice_line_table">-->
+
+<!--                            <thead style="padding:0px">-->
+<!--                                <tr style="padding:0px">-->
+<!--                                    <th name="Cant" class="text-left" style="width: 33%">-->
+<!--                                        <span>Retenciones</span>-->
+<!--                                    </th>-->
+<!--                                    <th name="Cant" class="text-right" style="width: 33%">-->
+<!--                                        <span>% de retención</span>-->
+<!--                                    </th>-->
+<!--                                    <th name="Cant" class="text-right" style="width: 33%">-->
+<!--                                        <span>Monto retenido</span>-->
+<!--                                    </th>-->
+<!--                                </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody class="invoice_tbody" style="padding:0px; font-size:13px">-->
+
+<!--                                &lt;!&ndash;<t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.move_name, -l.id), reverse=True)"/>&ndash;&gt;-->
+<!--                                <t t-foreach="o.apliqued_witholding" t-as="line">-->
+
+<!--                                    <tr style="border:hidden !important">-->
+<!--                                        &lt;!&ndash;<t t-if="not line.display_type" name="account_invoice_line_accountable">&ndash;&gt;-->
+<!--                                        <td name="account_invoice_line_name" class="text-left" style="padding-left:1px; width:36px;padding-bottom:0px !important; padding-top:0px !important">-->
+<!--                                            <span t-field="line.tax"/>-->
+<!--                                        </td>-->
+<!--                                        <td class="text-right" style="padding-left:1px;width:24px;padding-bottom:0px !important; padding-top:0px !important">-->
+<!--                                            <span t-esc="'{0:,.2f}'.format(line.amount)"/>-->
+<!--                                        </td>-->
+<!--                                        <td class="text-right" style="width:360px; padding-bottom:0px !important; padding-top:0px !important">-->
+<!--                                            <t t-if="o.currency_id.position == 'before'">-->
+<!--                                                <span t-field="o.currency_id.symbol"/>-->
+<!--                                            </t>-->
+<!--                                            <span t-esc="'{0:,.2f}'.format(line.tds_amount)"/>-->
+<!--                                            <t t-if="o.currency_id.position == 'after'">-->
+<!--                                                <span t-field="o.currency_id.symbol"/>-->
+<!--                                            </t>-->
+<!--                                        </td>-->
+
+<!--                                        &lt;!&ndash;</t>&ndash;&gt;-->
+<!--                                    </tr>-->
+<!--                                </t>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                     </div>-->
+<!--                 </t>-->
+<!--                    </t>-->
+<!--                 <t t-if="o.external_lay_aux('report_retenciones') == 'false'">-->
+<!--                     <t t-call="web.basic_layout">-->
+<!--                      <div class="row" style="margin-top:40px;">-->
+<!--                        <div class="col-3"/>-->
+<!--                        <div class="col-6"/>-->
+<!--                        <div class="col-2" style="font-size: 13px; padding-left:80px !important; ">-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-6" style="padding:0px">-->
+<!--                            <span><b>Cliente:</b></span>  <span t-if="o.partner_id.name" t-field="o.partner_id.name"/>-->
+<!--                        </div>-->
+
+
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-12" style="padding:0px">-->
+<!--                             <b>Dirección:</b>-->
+<!--                                <t t-if="o.partner_id.street">-->
+<!--                                    <span t-field="o.partner_id.street"/>-->
+<!--                                </t>-->
+<!--                                <t t-if="o.partner_id.street2 and o.partner_id.street">-->
+<!--                                    ,-->
+<!--                                </t>-->
+<!--                                <t t-if="o.partner_id.street2">-->
+<!--                                    <span t-field="o.partner_id.street2"/>-->
+<!--                                </t>-->
+<!--                                <t t-if="o.partner_id.state_id">-->
+<!--                                    ,-->
+
+
+
+
+<!--                                    <span t-field="o.partner_id.state_id.name"/>-->
+<!--                                </t>-->
+<!--                                <t t-if="o.partner_id.city">-->
+<!--                                    ,-->
+
+
+
+
+<!--                                    <span t-field="o.partner_id.city"/>-->
+<!--                                </t>-->
+<!--                                <t t-if="o.partner_id.country_id">-->
+<!--                                    ,-->
+
+
+
+
+<!--                                    <span t-field="o.partner_id.country_id.name"/>-->
+<!--                                </t>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                            <div class="col-5" style="padding:0px;white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">-->
+<!--                                <span><b>RUC:</b></span> <span t-if="o.partner_id.vat" t-field="o.partner_id.vat"/>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash;<div class="col-5" style=" white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">&ndash;&gt;-->
+
+<!--                            &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                            <div class="col-3" style="padding:0px">-->
+<!--                                <span><b>Fecha:</b></span> <span t-field="o.invoice_date"/>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+
+<!--                    <div class="row" style=" font-size: 16px;">-->
+<!--                        <div class="col-5" style="padding:0px;white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">-->
+<!--                                <span><b>Aplica a factura No.:</b></span>  <span t-if="o.payment_reference" t-esc="o.payment_reference"/>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash;<div class="col-5" style=" white-space:nowrap; overflow:hidden; text-overflow: ellipsis;">&ndash;&gt;-->
+
+<!--                            &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                            <div class="col-3" style="padding:0px">-->
+<!--                                <span><b>Base imponible:</b></span>-->
+<!--                            <t t-if="o.currency_id.position == 'before'">-->
+<!--                                 <t t-esc="o.currency_id.symbol"/>-->
+<!--                            </t>-->
+<!--                              <span t-if="o.amount_untaxed" t-esc="'{0:,.2f}'.format(o.amount_untaxed)"/>-->
+<!--                           <t t-if="o.currency_id.position == 'after'">-->
+<!--                                 <t t-esc="o.currency_id.symbol"/>-->
+<!--                            </t>-->
+<!--                            </div>-->
+
+
+
+<!--                        <div class="col-12" style="padding:0px">-->
+
+<!--                        </div>-->
+
+<!--                    </div>-->
+
+<!--                     <div style="height:122px !important;padding:0px; margin-top:3px;">-->
+<!--                        <table class="table table-sm o_main_table" style="margin-top:5px;padding:0px  " name="invoice_line_table">-->
+
+<!--                            <thead style="padding:0px">-->
+<!--                                <tr style="padding:0px">-->
+<!--                                    <th name="Cant" class="text-left" style="width: 33%">-->
+<!--                                        <span>Retenciones</span>-->
+<!--                                    </th>-->
+<!--                                    <th name="Cant" class="text-right" style="width: 33%">-->
+<!--                                        <span>% de retención</span>-->
+<!--                                    </th>-->
+<!--                                    <th name="Cant" class="text-right" style="width: 33%">-->
+<!--                                        <span>Monto retenido</span>-->
+<!--                                    </th>-->
+<!--                                </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody class="invoice_tbody" style="padding:0px; font-size:13px">-->
+
+<!--                                &lt;!&ndash;<t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.move_name, -l.id), reverse=True)"/>&ndash;&gt;-->
+<!--                                <t t-foreach="o.apliqued_witholding" t-as="line">-->
+
+<!--                                    <tr style="border:hidden !important">-->
+<!--                                        &lt;!&ndash;<t t-if="not line.display_type" name="account_invoice_line_accountable">&ndash;&gt;-->
+<!--                                        <td name="account_invoice_line_name" class="text-left" style="padding-left:1px; width:36px;padding-bottom:0px !important; padding-top:0px !important">-->
+<!--                                            <span t-field="line.tax"/>-->
+<!--                                        </td>-->
+<!--                                        <td class="text-right" style="padding-left:1px;width:24px;padding-bottom:0px !important; padding-top:0px !important">-->
+<!--                                            <span t-esc="'{0:,.2f}'.format(line.amount)"/>-->
+<!--                                        </td>-->
+<!--                                        <td class="text-right" style="width:360px; padding-bottom:0px !important; padding-top:0px !important">-->
+<!--                                            <t t-if="o.currency_id.position == 'before'">-->
+<!--                                                <span t-field="o.currency_id.symbol"/>-->
+<!--                                            </t>-->
+<!--                                            <span t-esc="'{0:,.2f}'.format(line.tds_amount)"/>-->
+<!--                                            <t t-if="o.currency_id.position == 'after'">-->
+<!--                                                <span t-field="o.currency_id.symbol"/>-->
+<!--                                            </t>-->
+<!--                                        </td>-->
+
+<!--                                        &lt;!&ndash;</t>&ndash;&gt;-->
+<!--                                    </tr>-->
+<!--                                </t>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                    </t>-->
+<!--                 </t>-->
+<!--            </t>-->
+<!--        </t>-->
+
+<!--    </template>-->
+
+
+</odoo>

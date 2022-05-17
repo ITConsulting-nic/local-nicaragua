@@ -1,0 +1,39 @@
+<odoo>
+
+
+    <record id="report_planilla_retenciones" model="ir.ui.view">
+        <field name="name">Reporte Planilla Retenciones</field>
+        <field name="model">planilla.retenciones</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <group>
+                    <group>
+                        <field name="date_init"/>
+                        <field name="date_end"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generate_xls" string="Generar XLS" type="object" class="oe_highlight" />
+                    o
+
+                    <button string="Cancelar" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id='action_planilla_retenciones_wizard' model='ir.actions.act_window'>
+        <field name="name">Reporte Planilla Retenciones</field>
+        <field name="res_model">planilla.retenciones</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+<!--&lt;!&ndash;    <menuitem id="menu_planilla_retenciones_wizard_header" parent="account.menu_finance_reports" name="Osmel Ni Reportes Vet" sequence="1"/>&ndash;&gt;-->
+
+    <menuitem id="menu_planilla_retenciones_wizard" action="action_planilla_retenciones_wizard" parent="l10n_ni_reportes_vet.menu_planilla_credito_wizard_header" name="Reporte Planilla Retenciones" sequence="1"/>
+
+
+
+
+</odoo>

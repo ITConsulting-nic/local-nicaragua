@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <!--
+        Plan de Cuentas para Nicaragua
+    -->
+    <record id="l10n_ni_chart_template" model="account.chart.template">
+        <field name="name">Plan de Cuentas para Nicaragua</field>
+        <field name="currency_id" ref="base.NIO"/>
+        <field name="code_digits">6</field>
+        <field name="bank_account_code_prefix">110103</field>
+        <field name="cash_account_code_prefix">110101</field>
+        <field name="transfer_account_code_prefix">110101</field>
+    </record>
+    </data>
+</odoo>

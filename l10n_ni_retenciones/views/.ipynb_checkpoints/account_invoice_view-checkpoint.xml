@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="invoice_form_tds_its_inherit" model="ir.ui.view">
+		<field name="name">account.invoice.form</field>
+		<field name="model">account.move</field>
+		<field name="inherit_id" ref="account.view_move_form"/>
+		<field name="arch" type="xml">
+
+			<button name="preview_invoice" position="before">
+                <button name="add_retention" string='Aplicar Retención'  class="oe_highlight" type='object'
+						groups="account.group_account_invoice" attrs="{'invisible': ['|', '|', ('state', '!=', 'posted'), ('move_type', '=', 'entry'), ('tds', '=', True)]}"/>
+				
+				<button name="revert_retention" string='Revertir Retenciones'  class="oe_highlight" type='object'
+						groups="account.group_account_invoice" attrs="{'invisible': ['|', '|', ('state', '!=', 'posted'), ('move_type', '=', 'entry'), ('tds', '=', False)]}"/>
+			</button>
+
+			
+			<xpath expr="//div[@name='journal_div']" position="after">
+				<field name="withholdings" widget="many2many_tags"
+				attrs="{'invisible': [ ('move_type', '=', 'entry')]}" domain ="[('tds', '=', True)]"/>
+				<field  name="tds" invisible="True"/>
+				<field name="invoice_name" invisible="1"/>
+			</xpath>
+
+			
+			<xpath expr="//button[@name='%(account.action_view_account_move_reversal)d']" position="attributes">
+				<attribute name="attrs"> {'invisible': ['|','|', ('move_type', '!=', 'entry'), 
+				'|', ('state', '!=', 'posted'), ('payment_state', '=', 'reversed'), ('invoice_name', '!=', False) ]} </attribute>
+			</xpath>
+
+
+			<xpath expr="//button[@name='button_draft']" position="attributes">
+				<attribute name="attrs"> {'invisible' : [ '|', ('show_reset_to_draft_button', '=', False), ('invoice_name', '!=', False)]} </attribute>
+			</xpath>
+
+			<xpath expr="//notebook/page[1]" position="after">
+			  <page string="Retenciones" attrs="{'invisible': [('move_type', '=', 'entry')]}">
+
+			    	<separator string="Retenciones Aplicadas"/>
+			    	<field name="apliqued_witholding"  force_save="1" widget="many2many" options="{'no_create': True}">
+			  			<tree edit="false" create="0" delete="0">
+						  		<field name="code"/>
+								<field name="tax"/>
+								<field name="type_tax"/>
+								<field name="amount"/>
+                                <field name="currency_id" invisible="1"/>
+								<field name="tds_amount" widget="monetary" sum="Total"/>
+							</tree>
+						</field>
+			    </page>
+			</xpath>
+		</field>
+	</record>
+</odoo>

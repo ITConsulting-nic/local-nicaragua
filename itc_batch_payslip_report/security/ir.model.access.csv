@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_itc_batch_payslip_report,wizard.batch.payslip.report,model_wizard_batch_payslip_report,base.group_user,1,1,1,1
+access_model_transient_print,report.itc_batch_payslip_report.report_batch_payslip_template,model_report_itc_batch_payslip_report_report_batch_payslip_template,base.group_user,1,1,1,1

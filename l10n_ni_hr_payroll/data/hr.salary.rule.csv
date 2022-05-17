@@ -1,0 +1,1113 @@
+id,code,name,appears_on_payslip,category_id/id,sequence,condition_select,amount_select,amount_python_compute,struct_id/id
+l10n_ni_hr_payroll_rule.PAR001_admonq,PAR001,SALARIO MENSUAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,1,none,code,result = contract.wage,l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAR002_admonq,PAR002,SALARIO POR DÍA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,2,none,code,"try: result = (PAR001 * 12) / 360
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAR003_admonq,PAR003,SALARIO POR HORA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,3,none,code,"try: result = PAR002 / 8
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAR004_admonq,PAR004,DÍAS TRABAJADOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,4,none,code,"contrato_administrativo = 1
+if contrato_administrativo == 1: dias_trabajados = 13
+else: dias_trabajados = worked_days.WORK100.number_of_days
+
+ #TIPOS DE AUSENCIAS QUE RESTAN DÍAS TRABAJADOS
+ #PAGADOS
+try: vacaciones = worked_days.VAC.number_of_days
+except: vacaciones = 0.00
+
+try: enfermedad = worked_days.ENF.number_of_days
+except: enfermedad = 0.00
+
+try: accidente = worked_days.ACC.number_of_days
+except: accidente = 0.00
+
+try: maternidad = worked_days.MAT.number_of_days
+except: maternidad = 0.00
+
+try: permiso_cgs = worked_days.CGS.number_of_days
+except: permiso_cgs = 0.00
+
+ #NO PAGADOS
+try: permiso_sgs = worked_days.SGD.number_of_days
+except: permiso_sgs = 0.00
+
+try: permiso_sgs_h = worked_days.SGH.number_of_days
+except: permiso_sgs_h = 0.00
+
+try: ausencia = worked_days.AUS.number_of_days
+except: ausencia = 0.00
+
+try: ouf_of_contract= worked_days.OUT.number_of_days
+except: ouf_of_contract= 0.00
+
+try: result = dias_trabajados - vacaciones - enfermedad - accidente - maternidad - permiso_cgs - permiso_sgs - permiso_sgs_h - ausencia - ouf_of_contract
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAR005_admonq,PAR005,SEPTIMOS ACUMULADOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,5,none,code,"if PAR004 >= 12 and PAR004 < 16: septimos_acumulados = 2
+elif PAR004 >= 6 and PAR004 <= 11: septimos_acumulados = 1
+else: septimos_acumulados = 0
+
+try: result = septimos_acumulados
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAR006_admonq,PAR006,HORAS SENCILLAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,6,none,code,"try: result = PAR004 * 8
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAR007_admonq,PAR007,HORAS EXTRA (horas),VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,7,none,code,"try: result = inputs.PAR007_01.amount
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAR008_admonq,PAR008,DIAS EXTRAORDINARIOS (días),VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,8,none,code,"try: result = inputs.PAR008_01.amount
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC101_admonq,BASIC101,SALARIO BÁSICO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,101,none,code,"try: result = round((PAR002 * PAR004), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC102_admonq,BASIC102,SÉPTIMOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,102,none,code,"try: result = round((PAR002 * PAR005), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC103_admonq,BASIC103,HORAS EXTRA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,103,none,code,"try: result = round((PAR007 * ((PAR002/8)*2)), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC104_admonq,BASIC104,VACACIONES DESCANSADAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,104,none,code,"try: result = round((worked_days.VAC.number_of_days * PAR002), 2 )
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC105_admonq,BASIC105,DIAS EXTRAORDINARIOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,105,none,code,"try: result = round((PAR008 * PAR002), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC106_admonq,BASIC106,PERMISO CGS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,106,none,code,"try: result = round((worked_days.CGS.number_of_days * PAR002), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC107_admonq,BASIC107,ENFERMEDAD COMÚN (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,107,none,code,"try: input_subsidio = inputs.BASIC107_01.amount
+except: input_subsidio = 0
+
+try: dias = worked_days.ENF.number_of_days
+except: dias = 0
+
+if dias > 0 and dias <= 3:
+        result = round((dias * PAR002), 2)
+else:
+        result = round(((dias * PAR002) + input_subsidio), 2)",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC108_admonq,BASIC108,ACCIDENTE COMÚN (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,108,none,code,"try: input_subsidio = inputs.BASIC108_01.amount
+except: input_subsidio = 0
+
+try: dias = worked_days.ACC.number_of_days
+except: dias = 0
+
+if dias > 0 and dias <= 3:
+        result = round((dias * PAR002), 2)
+else:
+        result = round(((dias * PAR002) + input_subsidio), 2)",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC109_admonq,BASIC109,MATERNIDAD (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,109,none,code,"try: result = round(inputs.BASIC109_01.amount,2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC110_admonq,BASIC110,COMISIONES/INCENTIVOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,110,none,code,"try: result = round(inputs.BASIC110_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASIC112_admonq,BASIC112,OTROS INGRESOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,112,none,code,"try: result = round(inputs.BASIC112_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.BASICT_admonq,BASICT,TOTAL INGRESOS SALARIO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASICT,149,none,code,result = categories.BASIC,l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INGO151_admonq,INGO151,VACACIONES PAGADAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,151,none,code,"try: result = round(inputs.INGO151_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INGO152_admonq,INGO152,INCENTIVOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,152,none,code,"try: result = round(inputs.INGO152_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INGO153_admonq,INGO153,BONOS OCACIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,153,none,code,"try: result = round(inputs.INGO153_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INGOT_admonq,INGOT,TOTAL INGRESOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGOT,198,none,code,result = categories.INGO,l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.GROSS_admonq,GROSS,BRUTO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.GROSS,199,none,code,result = categories.BASIC + categories.INGO,l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.DED201_admonq,DED201,INSS LABORAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,201,none,code,"result = round((categories.GROSS * 0.07),2)",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAR202_admonq,PAR202,IR LABORAL POR SALARIOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,202,none,code,"#CALCULO DE IR LABORAL QUINCENAL PARA LOS SIGUIENTES ESCENARIOS
+# 1. Periodo Completo (Art. 19.1 RL822) e Incompleto (Art. 19.4 RL822)
+# 3. Salario Variable (art. 19.6 RL822)
+
+periodo_desde = ""'"" + str(payslip.date_to.year) + ""-"" + str(payslip.date_to.month) +""-01"" + ""'""
+periodo_hasta = ""'"" + str(payslip.date_to) + ""'""
+anio_desde = ""'"" + str(payslip.date_to.year) + ""-01-01"" + ""'""
+anio_hasta = ""'"" + str(payslip.date_to.year) + ""-12-31"" + ""'""
+
+#1 DETERMINO EN QUE QUINCENA ESTOY
+if payslip.date_to.day <= 15: que_quincena_soy = 1
+else: que_quincena_soy = 2
+
+#2 DETERMINO EL SALARIO MENSUAL
+if que_quincena_soy == 1: # SI ESTOY EN LA QUINCENA 1, PROYECTAR LOS INGRESOS A MES, ES DECIR X2
+        salario_mensual_antes_de_inss = BASICT * 2
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+else: #DEBO SUMAR LOS INGRESOS DE TODO EL MES
+        try: salario_mensual_acumulado = payslip.sum ('BASICT',periodo_desde, periodo_hasta)
+        except: salario_mensual_acumulado = 0
+        salario_mensual_antes_de_inss = (salario_mensual_acumulado + BASICT)
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+
+#3 DETERMINO EL SALARIO ACUMULADO Y LOS INGRESOS EVENTUALES
+try: salario_anual_acumulado = payslip.sum ('BASICT',anio_desde, periodo_desde)
+except: salario_anual_acumulado = 0
+
+#3.1 DETERMINO EL SALARIO ACMULUADO
+salario_acumulado_antes_de_inss = salario_mensual_antes_de_inss + salario_anual_acumulado + contract.saldo_ingreso_bruto
+inss_salario_acumulado = salario_acumulado_antes_de_inss * 0.07
+salario_acumulado = salario_acumulado_antes_de_inss - inss_salario_acumulado
+
+#3.2 DETERMINO LOS INGRESOS OCASIONALES
+ingresos_ocasionales_antes_de_inss = INGOT
+inss_ingresos_ocasionales = ingresos_ocasionales_antes_de_inss * 0.07
+ingresos_eventuales = ingresos_ocasionales_antes_de_inss - inss_ingresos_ocasionales
+
+#4 DETERMINO LOS MESES TRANSCURRIDOS
+nominas_cerradas = contract.saldo_ir_no_quincenas + contract.nominas_pagadas
+
+if nominas_cerradas == 0: meses_transcurridos = 1.00
+else: meses_transcurridos = int((nominas_cerradas/2)+1)
+
+#5 DETERMINO EL IR ACUMULADO DEL AÑO EN CURSO
+try: ir_acumulado_nomina = payslip.sum ('PAR202',anio_desde, anio_hasta)
+except: ir_acumulado_nomina = 0
+
+if meses_transcurridos == 1: ir_acumulado_anio = 0
+else: ir_acumulado_anio = ir_acumulado_nomina + contract.saldo_ir
+
+#6 DETERMINO EL IR POR SALARIOS ACUMULADO DEL MES EN CURSO
+try: ir_acumulado_mes = payslip.sum ('PAR202',periodo_desde, periodo_hasta)
+except: ir_acumulado_mes = 0
+
+ir_mensual = compute_ir(payslip,categories,salario_acumulado,meses_transcurridos,ir_acumulado_anio,ir_acumulado_mes)
+
+#7 DETERMINO EL IR QUINCENAL POR SALARIOS
+if que_quincena_soy == 1:
+        ir_quincenal = ir_mensual / 2
+else:
+	ir_quincenal = (ir_mensual - ir_acumulado_mes)
+
+result = round(ir_quincenal,2)",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAR203_admonq,PAR203,IR LABORAL POR INGRESOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,203,none,code,"#CALCULO DE IR LABORAL QUINCENAL PARA LOS SIGUIENTES ESCENARIOS
+# 1. IR para Pagos Ocasionales (Art. 19.2 del RL822)
+
+
+periodo_desde = ""'"" + str(payslip.date_to.year) + ""-"" + str(payslip.date_to.month) +""-01"" + ""'""
+periodo_hasta = ""'"" + str(payslip.date_to) + ""'""
+anio_desde = ""'"" + str(payslip.date_to.year) + ""-01-01"" + ""'""
+anio_hasta = ""'"" + str(payslip.date_to.year) + ""-12-31"" + ""'""
+
+#1 DETERMINO EN QUE QUINCENA ESTOY
+if payslip.date_to.day <= 15: que_quincena_soy = 1
+else: que_quincena_soy = 2
+
+#2 DETERMINO EL SALARIO MENSUAL
+if que_quincena_soy == 1: # SI ESTOY EN LA QUINCENA 1, PROYECTAR LOS INGRESOS A MES, ES DECIR X2
+        salario_mensual_antes_de_inss = BASICT * 2
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+else: #DEBO SUMAR LOS INGRESOS DE TODO EL MES
+        try: salario_mensual_acumulado = payslip.sum ('BASICT',periodo_desde, periodo_hasta)
+        except: salario_mensual_acumulado = 0
+        salario_mensual_antes_de_inss = (salario_mensual_acumulado + BASICT)
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+
+#3 DETERMINO EL SALARIO ACUMULADO Y LOS INGRESOS EVENTUALES
+try: salario_anual_acumulado = payslip.sum ('BASICT',anio_desde, periodo_desde)
+except: salario_anual_acumulado = 0
+
+#3.1 DETERMINO EL SALARIO ACMULUADO
+salario_acumulado_antes_de_inss = salario_mensual_antes_de_inss + salario_anual_acumulado + contract.saldo_ingreso_bruto
+inss_salario_acumulado = salario_acumulado_antes_de_inss * 0.07
+salario_acumulado = salario_acumulado_antes_de_inss - inss_salario_acumulado
+
+#3.2 DETERMINO LOS INGRESOS OCASIONALES
+ingresos_ocasionales_antes_de_inss = INGOT
+inss_ingresos_ocasionales = ingresos_ocasionales_antes_de_inss * 0.07
+ingresos_ocasionales = ingresos_ocasionales_antes_de_inss - inss_ingresos_ocasionales
+
+#4 DETERMINO LOS MESES TRANSCURRIDOS
+nominas_cerradas = contract.saldo_ir_no_quincenas + contract.nominas_pagadas
+
+if nominas_cerradas == 0: meses_transcurridos = 1.00
+else: meses_transcurridos = int((nominas_cerradas/2)+1)
+
+#5 CALCULO DEL IR POR INGRESO OCASIONAL
+ir_inge = compute_ir_inge(payslip,categories,salario_acumulado,meses_transcurridos,ingresos_ocasionales)
+
+result = round(ir_inge,2)",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.DED204_admonq,DED204,IR LABORAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,204,none,code,result = PAR202 + PAR203,l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.DED205_admonq,DED205,OTRAS DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,205,none,code,"try: result = round(inputs.DED205_01.amount,2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.DED206_admonq,DED206,PENSIÓN ALIMENTICIA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,206,none,code,"try: input= inputs.DED206_01.amount
+except: input= 0
+
+if input > 0:
+	result = input
+else:
+	result = round(((GROSS - DED201) * (contract.pension_alimenticia / 100)),2)",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.DED299_admonq,DED299,TOTAL DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DEDT,299,none,code,result = categories.DED,l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INO301_admonq,INO301,ENFERMEDAD COMÚN (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,301,none,code,"try: result = round(inputs.INO301_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INO302_admonq,INO302,ACCIDENTE COMÚN (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,302,none,code,"try: result = round(inputs.INO302_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INO303_admonq,INO303,MATERNIDAD (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,303,none,code,"try: result = round(inputs.INO303_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INO304_admonq,INO304,VIÁTICOS ALIMENTACION,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,304,none,code,"try: result = round(inputs.INO304_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INO305_admonq,INO305,VIÁTICOS TRANSPORTE,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,305,none,code,"try: result = round(inputs.INO305_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INO306_admonq,INO306,DEPRECIACION,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,306,none,code,"try: result = round(inputs.INO306_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INO307_admonq,INO307,OTROS INGRESOS NO GRAVABLES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,307,none,code,"try: result = round(inputs.INO307_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.INO399_admonq,INO399,TOTAL INGRESO NO GRAVABLE,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INOT,399,none,code,result = categories.INO,l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAT501_admonq,PAT501,INSS PATRONAL,FALSO,l10n_ni_hr_payroll_s_rule_category.PATR,501,none,code,"try: result = round((categories.GROSS * 0.225),2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAT502_admonq,PAT502,INATEC,FALSO,l10n_ni_hr_payroll_s_rule_category.PATR,502,none,code,"try: result = round((categories.GROSS  * 0.02),2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PROV601_admonq,PROV601,VACACIONES,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,601,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PROV602_admonq,PROV602,AGUINALDO,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,602,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PROV603_admonq,PROV603,INDEMNIZACIÓN,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,603,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.NET_admonq,NET,NETO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.NET,999,none,code,"result = round(((categories.BASIC+ categories.INO) - categories.DED),2)",l10n_ni_hr_payroll_structure.quincenal_admon
+l10n_ni_hr_payroll_rule.PAR001_operq,PAR001,SALARIO MENSUAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,1,none,code,result = contract.wage,l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAR002_operq,PAR002,SALARIO POR DÍA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,2,none,code,"try: result = (PAR001 * 12) / 360
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAR003_operq,PAR003,SALARIO POR HORA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,3,none,code,"try: result = PAR002 / 8
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAR004_operq,PAR004,DÍAS TRABAJADOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,4,none,code,"contrato_administrativo = 1
+if contrato_administrativo == 1: dias_trabajados = 13
+else: dias_trabajados = worked_days.WORK100.number_of_days
+
+ #TIPOS DE AUSENCIAS QUE RESTAN DÍAS TRABAJADOS
+ #PAGADOS
+try: vacaciones = worked_days.VAC.number_of_days
+except: vacaciones = 0.00
+
+try: enfermedad = worked_days.ENF.number_of_days
+except: enfermedad = 0.00
+
+try: accidente = worked_days.ACC.number_of_days
+except: accidente = 0.00
+
+try: maternidad = worked_days.MAT.number_of_days
+except: maternidad = 0.00
+
+try: permiso_cgs = worked_days.CGS.number_of_days
+except: permiso_cgs = 0.00
+
+ #NO PAGADOS
+try: permiso_sgs = worked_days.SGD.number_of_days
+except: permiso_sgs = 0.00
+
+try: permiso_sgs_h = worked_days.SGH.number_of_days
+except: permiso_sgs_h = 0.00
+
+try: ausencia = worked_days.AUS.number_of_days
+except: ausencia = 0.00
+
+try: ouf_of_contract= worked_days.OUT.number_of_days
+except: ouf_of_contract= 0.00
+
+try: result = dias_trabajados - vacaciones - enfermedad - accidente - maternidad - permiso_cgs - permiso_sgs - permiso_sgs_h - ausencia - ouf_of_contract
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAR005_operq,PAR005,SEPTIMOS ACUMULADOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,5,none,code,"if PAR004 >= 12 and PAR004 < 16: septimos_acumulados = 2
+elif PAR004 >= 6 and PAR004 <= 11: septimos_acumulados = 1
+else: septimos_acumulados = 0
+
+try: result = septimos_acumulados
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAR006_operq,PAR006,HORAS SENCILLAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,6,none,code,"try: result = PAR004 * 8
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAR007_operq,PAR007,HORAS EXTRA (horas),VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,7,none,code,"try: result = inputs.PAR007_01.amount
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAR008_operq,PAR008,DIAS EXTRAORDINARIOS (días),VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,8,none,code,"try: result = inputs.PAR008_01.amount
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC101_operq,BASIC101,SALARIO BÁSICO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,101,none,code,"try: result = round((PAR002 * PAR004), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC102_operq,BASIC102,SÉPTIMOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,102,none,code,"try: result = round((PAR002 * PAR005), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC103_operq,BASIC103,HORAS EXTRA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,103,none,code,"try: result = round((PAR007 * ((PAR002/8)*2)), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC104_operq,BASIC104,VACACIONES DESCANSADAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,104,none,code,"try: result = round((worked_days.VAC.number_of_days * PAR002), 2 )
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC105_operq,BASIC105,DIAS EXTRAORDINARIOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,105,none,code,"try: result = round((PAR008 * PAR002), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC106_operq,BASIC106,PERMISO CGS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,106,none,code,"try: result = round((worked_days.CGS.number_of_days * PAR002), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC107_operq,BASIC107,ENFERMEDAD COMÚN (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,107,none,code,"try: input_subsidio = inputs.BASIC107_01.amount
+except: input_subsidio = 0
+
+try: dias = worked_days.ENF.number_of_days
+except: dias = 0
+
+if dias > 0 and dias <= 3:
+        result = round((dias * PAR002), 2)
+else:
+        result = round(((dias * PAR002) + input_subsidio), 2)",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC108_operq,BASIC108,ACCIDENTE COMÚN (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,108,none,code,"try: input_subsidio = inputs.BASIC108_01.amount
+except: input_subsidio = 0
+
+try: dias = worked_days.ACC.number_of_days
+except: dias = 0
+
+if dias > 0 and dias <= 3:
+        result = round((dias * PAR002), 2)
+else:
+        result = round(((dias * PAR002) + input_subsidio), 2)",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC109_operq,BASIC109,MATERNIDAD (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,109,none,code,"try: result = round(inputs.BASIC109_01.amount,2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC110_operq,BASIC110,COMISIONES/INCENTIVOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,110,none,code,"try: result = round(inputs.BASIC110_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASIC112_operq,BASIC112,OTROS INGRESOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,112,none,code,"try: result = round(inputs.BASIC112_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.BASICT_operq,BASICT,TOTAL INGRESOS SALARIO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASICT,149,none,code,result = categories.BASIC,l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INGO151_operq,INGO151,VACACIONES PAGADAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,151,none,code,"try: result = round(inputs.INGO151_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INGO152_operq,INGO152,INCENTIVOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,152,none,code,"try: result = round(inputs.INGO152_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INGO153_operq,INGO153,BONOS OCACIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,153,none,code,"try: result = round(inputs.INGO153_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INGOT_operq,INGOT,TOTAL INGRESOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGOT,198,none,code,result = categories.INGO,l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.GROSS_operq,GROSS,BRUTO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.GROSS,199,none,code,result = categories.BASIC + categories.INGO,l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.DED201_operq,DED201,INSS LABORAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,201,none,code,"result = round((categories.GROSS * 0.07),2)",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAR202_operq,PAR202,IR LABORAL POR SALARIOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,202,none,code,"#CALCULO DE IR LABORAL QUINCENAL PARA LOS SIGUIENTES ESCENARIOS
+# 1. Periodo Completo (Art. 19.1 RL822) e Incompleto (Art. 19.4 RL822)
+# 3. Salario Variable (art. 19.6 RL822)
+
+periodo_desde = ""'"" + str(payslip.date_to.year) + ""-"" + str(payslip.date_to.month) +""-01"" + ""'""
+periodo_hasta = ""'"" + str(payslip.date_to) + ""'""
+anio_desde = ""'"" + str(payslip.date_to.year) + ""-01-01"" + ""'""
+anio_hasta = ""'"" + str(payslip.date_to.year) + ""-12-31"" + ""'""
+
+#1 DETERMINO EN QUE QUINCENA ESTOY
+if payslip.date_to.day <= 15: que_quincena_soy = 1
+else: que_quincena_soy = 2
+
+#2 DETERMINO EL SALARIO MENSUAL
+if que_quincena_soy == 1: # SI ESTOY EN LA QUINCENA 1, PROYECTAR LOS INGRESOS A MES, ES DECIR X2
+        salario_mensual_antes_de_inss = BASICT * 2
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+else: #DEBO SUMAR LOS INGRESOS DE TODO EL MES
+        try: salario_mensual_acumulado = payslip.sum ('BASICT',periodo_desde, periodo_hasta)
+        except: salario_mensual_acumulado = 0
+        salario_mensual_antes_de_inss = (salario_mensual_acumulado + BASICT)
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+
+#3 DETERMINO EL SALARIO ACUMULADO Y LOS INGRESOS EVENTUALES
+try: salario_anual_acumulado = payslip.sum ('BASICT',anio_desde, periodo_desde)
+except: salario_anual_acumulado = 0
+
+#3.1 DETERMINO EL SALARIO ACMULUADO
+salario_acumulado_antes_de_inss = salario_mensual_antes_de_inss + salario_anual_acumulado + contract.saldo_ingreso_bruto
+inss_salario_acumulado = salario_acumulado_antes_de_inss * 0.07
+salario_acumulado = salario_acumulado_antes_de_inss - inss_salario_acumulado
+
+#3.2 DETERMINO LOS INGRESOS OCASIONALES
+ingresos_ocasionales_antes_de_inss = INGOT
+inss_ingresos_ocasionales = ingresos_ocasionales_antes_de_inss * 0.07
+ingresos_eventuales = ingresos_ocasionales_antes_de_inss - inss_ingresos_ocasionales
+
+#4 DETERMINO LOS MESES TRANSCURRIDOS
+nominas_cerradas = contract.saldo_ir_no_quincenas + contract.nominas_pagadas
+
+if nominas_cerradas == 0: meses_transcurridos = 1.00
+else: meses_transcurridos = int((nominas_cerradas/2)+1)
+
+#5 DETERMINO EL IR ACUMULADO DEL AÑO EN CURSO
+try: ir_acumulado_nomina = payslip.sum ('PAR202',anio_desde, anio_hasta)
+except: ir_acumulado_nomina = 0
+
+if meses_transcurridos == 1: ir_acumulado_anio = 0
+else: ir_acumulado_anio = ir_acumulado_nomina + contract.saldo_ir
+
+#6 DETERMINO EL IR POR SALARIOS ACUMULADO DEL MES EN CURSO
+try: ir_acumulado_mes = payslip.sum ('PAR202',periodo_desde, periodo_hasta)
+except: ir_acumulado_mes = 0
+
+ir_mensual = compute_ir(payslip,categories,salario_acumulado,meses_transcurridos,ir_acumulado_anio,ir_acumulado_mes)
+
+#7 DETERMINO EL IR QUINCENAL POR SALARIOS
+if que_quincena_soy == 1:
+        ir_quincenal = ir_mensual / 2
+else:
+	ir_quincenal = (ir_mensual - ir_acumulado_mes)
+
+result = round(ir_quincenal,2)",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAR203_operq,PAR203,IR LABORAL POR INGRESOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,203,none,code,"#CALCULO DE IR LABORAL QUINCENAL PARA LOS SIGUIENTES ESCENARIOS
+# 1. IR para Pagos Ocasionales (Art. 19.2 del RL822)
+
+
+periodo_desde = ""'"" + str(payslip.date_to.year) + ""-"" + str(payslip.date_to.month) +""-01"" + ""'""
+periodo_hasta = ""'"" + str(payslip.date_to) + ""'""
+anio_desde = ""'"" + str(payslip.date_to.year) + ""-01-01"" + ""'""
+anio_hasta = ""'"" + str(payslip.date_to.year) + ""-12-31"" + ""'""
+
+#1 DETERMINO EN QUE QUINCENA ESTOY
+if payslip.date_to.day <= 15: que_quincena_soy = 1
+else: que_quincena_soy = 2
+
+#2 DETERMINO EL SALARIO MENSUAL
+if que_quincena_soy == 1: # SI ESTOY EN LA QUINCENA 1, PROYECTAR LOS INGRESOS A MES, ES DECIR X2
+        salario_mensual_antes_de_inss = BASICT * 2
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+else: #DEBO SUMAR LOS INGRESOS DE TODO EL MES
+        try: salario_mensual_acumulado = payslip.sum ('BASICT',periodo_desde, periodo_hasta)
+        except: salario_mensual_acumulado = 0
+        salario_mensual_antes_de_inss = (salario_mensual_acumulado + BASICT)
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+
+#3 DETERMINO EL SALARIO ACUMULADO Y LOS INGRESOS EVENTUALES
+try: salario_anual_acumulado = payslip.sum ('BASICT',anio_desde, periodo_desde)
+except: salario_anual_acumulado = 0
+
+#3.1 DETERMINO EL SALARIO ACMULUADO
+salario_acumulado_antes_de_inss = salario_mensual_antes_de_inss + salario_anual_acumulado + contract.saldo_ingreso_bruto
+inss_salario_acumulado = salario_acumulado_antes_de_inss * 0.07
+salario_acumulado = salario_acumulado_antes_de_inss - inss_salario_acumulado
+
+#3.2 DETERMINO LOS INGRESOS OCASIONALES
+ingresos_ocasionales_antes_de_inss = INGOT
+inss_ingresos_ocasionales = ingresos_ocasionales_antes_de_inss * 0.07
+ingresos_ocasionales = ingresos_ocasionales_antes_de_inss - inss_ingresos_ocasionales
+
+#4 DETERMINO LOS MESES TRANSCURRIDOS
+nominas_cerradas = contract.saldo_ir_no_quincenas + contract.nominas_pagadas
+
+if nominas_cerradas == 0: meses_transcurridos = 1.00
+else: meses_transcurridos = int((nominas_cerradas/2)+1)
+
+#5 CALCULO DEL IR POR INGRESO OCASIONAL
+ir_inge = compute_ir_inge(payslip,categories,salario_acumulado,meses_transcurridos,ingresos_ocasionales)
+
+result = round(ir_inge,2)",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.DED204_operq,DED204,IR LABORAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,204,none,code,result = PAR202 + PAR203,l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.DED205_operq,DED205,OTRAS DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,205,none,code,"try: result = round(inputs.DED205_01.amount,2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.DED206_operq,DED206,PENSIÓN ALIMENTICIA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,206,none,code,"try: input= inputs.DED206_01.amount
+except: input= 0
+
+if input > 0:
+	result = input
+else:
+	result = round(((GROSS - DED201) * (contract.pension_alimenticia / 100)),2)",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.DED299_operq,DED299,TOTAL DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DEDT,299,none,code,result = categories.DED,l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INO301_operq,INO301,ENFERMEDAD COMÚN (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,301,none,code,"try: result = round(inputs.INO301_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INO302_operq,INO302,ACCIDENTE COMÚN (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,302,none,code,"try: result = round(inputs.INO302_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INO303_operq,INO303,MATERNIDAD (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,303,none,code,"try: result = round(inputs.INO303_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INO304_operq,INO304,VIÁTICOS ALIMENTACION,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,304,none,code,"try: result = round(inputs.INO304_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INO305_operq,INO305,VIÁTICOS TRANSPORTE,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,305,none,code,"try: result = round(inputs.INO305_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INO306_operq,INO306,DEPRECIACION,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,306,none,code,"try: result = round(inputs.INO306_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INO307_operq,INO307,OTROS INGRESOS NO GRAVABLES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,307,none,code,"try: result = round(inputs.INO307_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.INO399_operq,INO399,TOTAL INGRESO NO GRAVABLE,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INOT,399,none,code,result = categories.INO,l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAT501_operq,PAT501,INSS PATRONAL,FALSO,l10n_ni_hr_payroll_s_rule_category.PATR,501,none,code,"try: result = round((categories.GROSS * 0.225),2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAT502_operq,PAT502,INATEC,FALSO,l10n_ni_hr_payroll_s_rule_category.PATR,502,none,code,"try: result = round((categories.GROSS  * 0.02),2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PROV601_operq,PROV601,VACACIONES,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,601,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PROV602_operq,PROV602,AGUINALDO,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,602,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PROV603_operq,PROV603,INDEMNIZACIÓN,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,603,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.NET_operq,NET,NETO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.NET,999,none,code,"result = round(((categories.BASIC+ categories.INO) - categories.DED),2)",l10n_ni_hr_payroll_structure.quincenal_oper
+l10n_ni_hr_payroll_rule.PAR001_admonm,PAR001,SALARIO MENSUAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,1,none,code,result = contract.wage,l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAR002_admonm,PAR002,SALARIO POR DÍA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,2,none,code,"try: result = (PAR001 * 12) / 360
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAR003_admonm,PAR003,SALARIO POR HORA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,3,none,code,"try: result = PAR002 / 8
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAR004_admonm,PAR004,DÍAS TRABAJADOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,4,none,code,"contrato_administrativo = 1
+if contrato_administrativo == 1: dias_trabajados = 13
+else: dias_trabajados = worked_days.WORK100.number_of_days
+
+ #TIPOS DE AUSENCIAS QUE RESTAN DÍAS TRABAJADOS
+ #PAGADOS
+try: vacaciones = worked_days.VAC.number_of_days
+except: vacaciones = 0.00
+
+try: enfermedad = worked_days.ENF.number_of_days
+except: enfermedad = 0.00
+
+try: accidente = worked_days.ACC.number_of_days
+except: accidente = 0.00
+
+try: maternidad = worked_days.MAT.number_of_days
+except: maternidad = 0.00
+
+try: permiso_cgs = worked_days.CGS.number_of_days
+except: permiso_cgs = 0.00
+
+ #NO PAGADOS
+try: permiso_sgs = worked_days.SGD.number_of_days
+except: permiso_sgs = 0.00
+
+try: permiso_sgs_h = worked_days.SGH.number_of_days
+except: permiso_sgs_h = 0.00
+
+try: ausencia = worked_days.AUS.number_of_days
+except: ausencia = 0.00
+
+try: ouf_of_contract= worked_days.OUT.number_of_days
+except: ouf_of_contract= 0.00
+
+try: result = dias_trabajados - vacaciones - enfermedad - accidente - maternidad - permiso_cgs - permiso_sgs - permiso_sgs_h - ausencia - ouf_of_contract
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAR005_admonm,PAR005,SEPTIMOS ACUMULADOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,5,none,code,"if PAR004 >= 12 and PAR004 < 16: septimos_acumulados = 2
+elif PAR004 >= 6 and PAR004 <= 11: septimos_acumulados = 1
+else: septimos_acumulados = 0
+
+try: result = septimos_acumulados
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAR006_admonm,PAR006,HORAS SENCILLAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,6,none,code,"try: result = PAR004 * 8
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAR007_admonm,PAR007,HORAS EXTRA (horas),VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,7,none,code,"try: result = inputs.PAR007_01.amount
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAR008_admonm,PAR008,DIAS EXTRAORDINARIOS (días),VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,8,none,code,"try: result = inputs.PAR008_01.amount
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC101_admonm,BASIC101,SALARIO BÁSICO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,101,none,code,"try: result = round((PAR002 * PAR004), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC102_admonm,BASIC102,SÉPTIMOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,102,none,code,"try: result = round((PAR002 * PAR005), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC103_admonm,BASIC103,HORAS EXTRA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,103,none,code,"try: result = round((PAR007 * ((PAR002/8)*2)), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC104_admonm,BASIC104,VACACIONES DESCANSADAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,104,none,code,"try: result = round((worked_days.VAC.number_of_days * PAR002), 2 )
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC105_admonm,BASIC105,DIAS EXTRAORDINARIOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,105,none,code,"try: result = round((PAR008 * PAR002), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC106_admonm,BASIC106,PERMISO CGS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,106,none,code,"try: result = round((worked_days.CGS.number_of_days * PAR002), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC107_admonm,BASIC107,ENFERMEDAD COMÚN (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,107,none,code,"try: input_subsidio = inputs.BASIC107_01.amount
+except: input_subsidio = 0
+
+try: dias = worked_days.ENF.number_of_days
+except: dias = 0
+
+if dias > 0 and dias <= 3:
+        result = round((dias * PAR002), 2)
+else:
+        result = round(((dias * PAR002) + input_subsidio), 2)",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC108_admonm,BASIC108,ACCIDENTE COMÚN (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,108,none,code,"try: input_subsidio = inputs.BASIC108_01.amount
+except: input_subsidio = 0
+
+try: dias = worked_days.ACC.number_of_days
+except: dias = 0
+
+if dias > 0 and dias <= 3:
+        result = round((dias * PAR002), 2)
+else:
+        result = round(((dias * PAR002) + input_subsidio), 2)",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC109_admonm,BASIC109,MATERNIDAD (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,109,none,code,"try: result = round(inputs.BASIC109_01.amount,2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC110_admonm,BASIC110,COMISIONES/INCENTIVOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,110,none,code,"try: result = round(inputs.BASIC110_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASIC112_admonm,BASIC112,OTROS INGRESOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,112,none,code,"try: result = round(inputs.BASIC112_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.BASICT_admonm,BASICT,TOTAL INGRESOS SALARIO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASICT,149,none,code,result = categories.BASIC,l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INGO151_admonm,INGO151,VACACIONES PAGADAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,151,none,code,"try: result = round(inputs.INGO151_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INGO152_admonm,INGO152,INCENTIVOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,152,none,code,"try: result = round(inputs.INGO152_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INGO153_admonm,INGO153,BONOS OCACIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,153,none,code,"try: result = round(inputs.INGO153_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INGOT_admonm,INGOT,TOTAL INGRESOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGOT,198,none,code,result = categories.INGO,l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.GROSS_admonm,GROSS,BRUTO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.GROSS,199,none,code,result = categories.BASIC + categories.INGO,l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.DED201_admonm,DED201,INSS LABORAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,201,none,code,"result = round((categories.GROSS * 0.07),2)",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAR202_admonm,PAR202,IR LABORAL POR SALARIOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,202,none,code,"#CALCULO DE IR LABORAL QUINCENAL PARA LOS SIGUIENTES ESCENARIOS
+# 1. Periodo Completo (Art. 19.1 RL822) e Incompleto (Art. 19.4 RL822)
+# 3. Salario Variable (art. 19.6 RL822)
+
+periodo_desde = ""'"" + str(payslip.date_to.year) + ""-"" + str(payslip.date_to.month) +""-01"" + ""'""
+periodo_hasta = ""'"" + str(payslip.date_to) + ""'""
+anio_desde = ""'"" + str(payslip.date_to.year) + ""-01-01"" + ""'""
+anio_hasta = ""'"" + str(payslip.date_to.year) + ""-12-31"" + ""'""
+
+#1 DETERMINO EN QUE QUINCENA ESTOY
+if payslip.date_to.day <= 15: que_quincena_soy = 1
+else: que_quincena_soy = 2
+
+#2 DETERMINO EL SALARIO MENSUAL
+if que_quincena_soy == 1: # SI ESTOY EN LA QUINCENA 1, PROYECTAR LOS INGRESOS A MES, ES DECIR X2
+        salario_mensual_antes_de_inss = BASICT * 2
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+else: #DEBO SUMAR LOS INGRESOS DE TODO EL MES
+        try: salario_mensual_acumulado = payslip.sum ('BASICT',periodo_desde, periodo_hasta)
+        except: salario_mensual_acumulado = 0
+        salario_mensual_antes_de_inss = (salario_mensual_acumulado + BASICT)
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+
+#3 DETERMINO EL SALARIO ACUMULADO Y LOS INGRESOS EVENTUALES
+try: salario_anual_acumulado = payslip.sum ('BASICT',anio_desde, periodo_desde)
+except: salario_anual_acumulado = 0
+
+#3.1 DETERMINO EL SALARIO ACMULUADO
+salario_acumulado_antes_de_inss = salario_mensual_antes_de_inss + salario_anual_acumulado + contract.saldo_ingreso_bruto
+inss_salario_acumulado = salario_acumulado_antes_de_inss * 0.07
+salario_acumulado = salario_acumulado_antes_de_inss - inss_salario_acumulado
+
+#3.2 DETERMINO LOS INGRESOS OCASIONALES
+ingresos_ocasionales_antes_de_inss = INGOT
+inss_ingresos_ocasionales = ingresos_ocasionales_antes_de_inss * 0.07
+ingresos_eventuales = ingresos_ocasionales_antes_de_inss - inss_ingresos_ocasionales
+
+#4 DETERMINO LOS MESES TRANSCURRIDOS
+nominas_cerradas = contract.saldo_ir_no_quincenas + contract.nominas_pagadas
+
+if nominas_cerradas == 0: meses_transcurridos = 1.00
+else: meses_transcurridos = int((nominas_cerradas/2)+1)
+
+#5 DETERMINO EL IR ACUMULADO DEL AÑO EN CURSO
+try: ir_acumulado_nomina = payslip.sum ('PAR202',anio_desde, anio_hasta)
+except: ir_acumulado_nomina = 0
+
+if meses_transcurridos == 1: ir_acumulado_anio = 0
+else: ir_acumulado_anio = ir_acumulado_nomina + contract.saldo_ir
+
+#6 DETERMINO EL IR POR SALARIOS ACUMULADO DEL MES EN CURSO
+try: ir_acumulado_mes = payslip.sum ('PAR202',periodo_desde, periodo_hasta)
+except: ir_acumulado_mes = 0
+
+ir_mensual = compute_ir(payslip,categories,salario_acumulado,meses_transcurridos,ir_acumulado_anio,ir_acumulado_mes)
+
+#7 DETERMINO EL IR QUINCENAL POR SALARIOS
+if que_quincena_soy == 1:
+        ir_quincenal = ir_mensual / 2
+else:
+	ir_quincenal = (ir_mensual - ir_acumulado_mes)
+
+result = round(ir_quincenal,2)",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAR203_admonm,PAR203,IR LABORAL POR INGRESOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,203,none,code,"#CALCULO DE IR LABORAL QUINCENAL PARA LOS SIGUIENTES ESCENARIOS
+# 1. IR para Pagos Ocasionales (Art. 19.2 del RL822)
+
+
+periodo_desde = ""'"" + str(payslip.date_to.year) + ""-"" + str(payslip.date_to.month) +""-01"" + ""'""
+periodo_hasta = ""'"" + str(payslip.date_to) + ""'""
+anio_desde = ""'"" + str(payslip.date_to.year) + ""-01-01"" + ""'""
+anio_hasta = ""'"" + str(payslip.date_to.year) + ""-12-31"" + ""'""
+
+#1 DETERMINO EN QUE QUINCENA ESTOY
+if payslip.date_to.day <= 15: que_quincena_soy = 1
+else: que_quincena_soy = 2
+
+#2 DETERMINO EL SALARIO MENSUAL
+if que_quincena_soy == 1: # SI ESTOY EN LA QUINCENA 1, PROYECTAR LOS INGRESOS A MES, ES DECIR X2
+        salario_mensual_antes_de_inss = BASICT * 2
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+else: #DEBO SUMAR LOS INGRESOS DE TODO EL MES
+        try: salario_mensual_acumulado = payslip.sum ('BASICT',periodo_desde, periodo_hasta)
+        except: salario_mensual_acumulado = 0
+        salario_mensual_antes_de_inss = (salario_mensual_acumulado + BASICT)
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+
+#3 DETERMINO EL SALARIO ACUMULADO Y LOS INGRESOS EVENTUALES
+try: salario_anual_acumulado = payslip.sum ('BASICT',anio_desde, periodo_desde)
+except: salario_anual_acumulado = 0
+
+#3.1 DETERMINO EL SALARIO ACMULUADO
+salario_acumulado_antes_de_inss = salario_mensual_antes_de_inss + salario_anual_acumulado + contract.saldo_ingreso_bruto
+inss_salario_acumulado = salario_acumulado_antes_de_inss * 0.07
+salario_acumulado = salario_acumulado_antes_de_inss - inss_salario_acumulado
+
+#3.2 DETERMINO LOS INGRESOS OCASIONALES
+ingresos_ocasionales_antes_de_inss = INGOT
+inss_ingresos_ocasionales = ingresos_ocasionales_antes_de_inss * 0.07
+ingresos_ocasionales = ingresos_ocasionales_antes_de_inss - inss_ingresos_ocasionales
+
+#4 DETERMINO LOS MESES TRANSCURRIDOS
+nominas_cerradas = contract.saldo_ir_no_quincenas + contract.nominas_pagadas
+
+if nominas_cerradas == 0: meses_transcurridos = 1.00
+else: meses_transcurridos = int((nominas_cerradas/2)+1)
+
+#5 CALCULO DEL IR POR INGRESO OCASIONAL
+ir_inge = compute_ir_inge(payslip,categories,salario_acumulado,meses_transcurridos,ingresos_ocasionales)
+
+result = round(ir_inge,2)",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.DED204_admonm,DED204,IR LABORAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,204,none,code,result = PAR202 + PAR203,l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.DED205_admonm,DED205,OTRAS DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,205,none,code,"try: result = round(inputs.DED205_01.amount,2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.DED206_admonm,DED206,PENSIÓN ALIMENTICIA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,206,none,code,"try: input= inputs.DED206_01.amount
+except: input= 0
+
+if input > 0:
+	result = input
+else:
+	result = round(((GROSS - DED201) * (contract.pension_alimenticia / 100)),2)",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.DED299_admonm,DED299,TOTAL DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DEDT,299,none,code,result = categories.DED,l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INO301_admonm,INO301,ENFERMEDAD COMÚN (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,301,none,code,"try: result = round(inputs.INO301_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INO302_admonm,INO302,ACCIDENTE COMÚN (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,302,none,code,"try: result = round(inputs.INO302_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INO303_admonm,INO303,MATERNIDAD (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,303,none,code,"try: result = round(inputs.INO303_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INO304_admonm,INO304,VIÁTICOS ALIMENTACION,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,304,none,code,"try: result = round(inputs.INO304_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INO305_admonm,INO305,VIÁTICOS TRANSPORTE,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,305,none,code,"try: result = round(inputs.INO305_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INO306_admonm,INO306,DEPRECIACION,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,306,none,code,"try: result = round(inputs.INO306_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INO307_admonm,INO307,OTROS INGRESOS NO GRAVABLES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,307,none,code,"try: result = round(inputs.INO307_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.INO399_admonm,INO399,TOTAL INGRESO NO GRAVABLE,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INOT,399,none,code,result = categories.INO,l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAT501_admonm,PAT501,INSS PATRONAL,FALSO,l10n_ni_hr_payroll_s_rule_category.PATR,501,none,code,"try: result = round((categories.GROSS * 0.225),2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAT502_admonm,PAT502,INATEC,FALSO,l10n_ni_hr_payroll_s_rule_category.PATR,502,none,code,"try: result = round((categories.GROSS  * 0.02),2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PROV601_admonm,PROV601,VACACIONES,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,601,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PROV602_admonm,PROV602,AGUINALDO,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,602,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PROV603_admonm,PROV603,INDEMNIZACIÓN,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,603,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.NET_admonm,NET,NETO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.NET,999,none,code,"result = round(((categories.BASIC+ categories.INO) - categories.DED),2)",l10n_ni_hr_payroll_structure.mensual_admon
+l10n_ni_hr_payroll_rule.PAR001_operm,PAR001,SALARIO MENSUAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,1,none,code,result = contract.wage,l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAR002_operm,PAR002,SALARIO POR DÍA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,2,none,code,"try: result = (PAR001 * 12) / 360
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAR003_operm,PAR003,SALARIO POR HORA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,3,none,code,"try: result = PAR002 / 8
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAR004_operm,PAR004,DÍAS TRABAJADOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,4,none,code,"contrato_administrativo = 1
+if contrato_administrativo == 1: dias_trabajados = 13
+else: dias_trabajados = worked_days.WORK100.number_of_days
+
+ #TIPOS DE AUSENCIAS QUE RESTAN DÍAS TRABAJADOS
+ #PAGADOS
+try: vacaciones = worked_days.VAC.number_of_days
+except: vacaciones = 0.00
+
+try: enfermedad = worked_days.ENF.number_of_days
+except: enfermedad = 0.00
+
+try: accidente = worked_days.ACC.number_of_days
+except: accidente = 0.00
+
+try: maternidad = worked_days.MAT.number_of_days
+except: maternidad = 0.00
+
+try: permiso_cgs = worked_days.CGS.number_of_days
+except: permiso_cgs = 0.00
+
+ #NO PAGADOS
+try: permiso_sgs = worked_days.SGD.number_of_days
+except: permiso_sgs = 0.00
+
+try: permiso_sgs_h = worked_days.SGH.number_of_days
+except: permiso_sgs_h = 0.00
+
+try: ausencia = worked_days.AUS.number_of_days
+except: ausencia = 0.00
+
+try: ouf_of_contract= worked_days.OUT.number_of_days
+except: ouf_of_contract= 0.00
+
+try: result = dias_trabajados - vacaciones - enfermedad - accidente - maternidad - permiso_cgs - permiso_sgs - permiso_sgs_h - ausencia - ouf_of_contract
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAR005_operm,PAR005,SEPTIMOS ACUMULADOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,5,none,code,"if PAR004 >= 12 and PAR004 < 16: septimos_acumulados = 2
+elif PAR004 >= 6 and PAR004 <= 11: septimos_acumulados = 1
+else: septimos_acumulados = 0
+
+try: result = septimos_acumulados
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAR006_operm,PAR006,HORAS SENCILLAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,6,none,code,"try: result = PAR004 * 8
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAR007_operm,PAR007,HORAS EXTRA (horas),VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,7,none,code,"try: result = inputs.PAR007_01.amount
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAR008_operm,PAR008,DIAS EXTRAORDINARIOS (días),VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,8,none,code,"try: result = inputs.PAR008_01.amount
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC101_operm,BASIC101,SALARIO BÁSICO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,101,none,code,"try: result = round((PAR002 * PAR004), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC102_operm,BASIC102,SÉPTIMOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,102,none,code,"try: result = round((PAR002 * PAR005), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC103_operm,BASIC103,HORAS EXTRA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,103,none,code,"try: result = round((PAR007 * ((PAR002/8)*2)), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC104_operm,BASIC104,VACACIONES DESCANSADAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,104,none,code,"try: result = round((worked_days.VAC.number_of_days * PAR002), 2 )
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC105_operm,BASIC105,DIAS EXTRAORDINARIOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,105,none,code,"try: result = round((PAR008 * PAR002), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC106_operm,BASIC106,PERMISO CGS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,106,none,code,"try: result = round((worked_days.CGS.number_of_days * PAR002), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC107_operm,BASIC107,ENFERMEDAD COMÚN (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,107,none,code,"try: input_subsidio = inputs.BASIC107_01.amount
+except: input_subsidio = 0
+
+try: dias = worked_days.ENF.number_of_days
+except: dias = 0
+
+if dias > 0 and dias <= 3:
+        result = round((dias * PAR002), 2)
+else:
+        result = round(((dias * PAR002) + input_subsidio), 2)",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC108_operm,BASIC108,ACCIDENTE COMÚN (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,108,none,code,"try: input_subsidio = inputs.BASIC108_01.amount
+except: input_subsidio = 0
+
+try: dias = worked_days.ACC.number_of_days
+except: dias = 0
+
+if dias > 0 and dias <= 3:
+        result = round((dias * PAR002), 2)
+else:
+        result = round(((dias * PAR002) + input_subsidio), 2)",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC109_operm,BASIC109,MATERNIDAD (EMPLEADOR),VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,109,none,code,"try: result = round(inputs.BASIC109_01.amount,2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC110_operm,BASIC110,COMISIONES/INCENTIVOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,110,none,code,"try: result = round(inputs.BASIC110_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASIC112_operm,BASIC112,OTROS INGRESOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,112,none,code,"try: result = round(inputs.BASIC112_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.BASICT_operm,BASICT,TOTAL INGRESOS SALARIO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASICT,149,none,code,result = categories.BASIC,l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INGO151_operm,INGO151,VACACIONES PAGADAS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,151,none,code,"try: result = round(inputs.INGO151_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INGO152_operm,INGO152,INCENTIVOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,152,none,code,"try: result = round(inputs.INGO152_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INGO153_operm,INGO153,BONOS OCACIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGO,153,none,code,"try: result = round(inputs.INGO153_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INGOT_operm,INGOT,TOTAL INGRESOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INGOT,198,none,code,result = categories.INGO,l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.GROSS_operm,GROSS,BRUTO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.GROSS,199,none,code,result = categories.BASIC + categories.INGO,l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.DED201_operm,DED201,INSS LABORAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,201,none,code,"result = round((categories.GROSS * 0.07),2)",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAR202_operm,PAR202,IR LABORAL POR SALARIOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,202,none,code,"#CALCULO DE IR LABORAL QUINCENAL PARA LOS SIGUIENTES ESCENARIOS
+# 1. Periodo Completo (Art. 19.1 RL822) e Incompleto (Art. 19.4 RL822)
+# 3. Salario Variable (art. 19.6 RL822)
+
+periodo_desde = ""'"" + str(payslip.date_to.year) + ""-"" + str(payslip.date_to.month) +""-01"" + ""'""
+periodo_hasta = ""'"" + str(payslip.date_to) + ""'""
+anio_desde = ""'"" + str(payslip.date_to.year) + ""-01-01"" + ""'""
+anio_hasta = ""'"" + str(payslip.date_to.year) + ""-12-31"" + ""'""
+
+#1 DETERMINO EN QUE QUINCENA ESTOY
+if payslip.date_to.day <= 15: que_quincena_soy = 1
+else: que_quincena_soy = 2
+
+#2 DETERMINO EL SALARIO MENSUAL
+if que_quincena_soy == 1: # SI ESTOY EN LA QUINCENA 1, PROYECTAR LOS INGRESOS A MES, ES DECIR X2
+        salario_mensual_antes_de_inss = BASICT * 2
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+else: #DEBO SUMAR LOS INGRESOS DE TODO EL MES
+        try: salario_mensual_acumulado = payslip.sum ('BASICT',periodo_desde, periodo_hasta)
+        except: salario_mensual_acumulado = 0
+        salario_mensual_antes_de_inss = (salario_mensual_acumulado + BASICT)
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+
+#3 DETERMINO EL SALARIO ACUMULADO Y LOS INGRESOS EVENTUALES
+try: salario_anual_acumulado = payslip.sum ('BASICT',anio_desde, periodo_desde)
+except: salario_anual_acumulado = 0
+
+#3.1 DETERMINO EL SALARIO ACMULUADO
+salario_acumulado_antes_de_inss = salario_mensual_antes_de_inss + salario_anual_acumulado + contract.saldo_ingreso_bruto
+inss_salario_acumulado = salario_acumulado_antes_de_inss * 0.07
+salario_acumulado = salario_acumulado_antes_de_inss - inss_salario_acumulado
+
+#3.2 DETERMINO LOS INGRESOS OCASIONALES
+ingresos_ocasionales_antes_de_inss = INGOT
+inss_ingresos_ocasionales = ingresos_ocasionales_antes_de_inss * 0.07
+ingresos_eventuales = ingresos_ocasionales_antes_de_inss - inss_ingresos_ocasionales
+
+#4 DETERMINO LOS MESES TRANSCURRIDOS
+nominas_cerradas = contract.saldo_ir_no_quincenas + contract.nominas_pagadas
+
+if nominas_cerradas == 0: meses_transcurridos = 1.00
+else: meses_transcurridos = int((nominas_cerradas/2)+1)
+
+#5 DETERMINO EL IR ACUMULADO DEL AÑO EN CURSO
+try: ir_acumulado_nomina = payslip.sum ('PAR202',anio_desde, anio_hasta)
+except: ir_acumulado_nomina = 0
+
+if meses_transcurridos == 1: ir_acumulado_anio = 0
+else: ir_acumulado_anio = ir_acumulado_nomina + contract.saldo_ir
+
+#6 DETERMINO EL IR POR SALARIOS ACUMULADO DEL MES EN CURSO
+try: ir_acumulado_mes = payslip.sum ('PAR202',periodo_desde, periodo_hasta)
+except: ir_acumulado_mes = 0
+
+ir_mensual = compute_ir(payslip,categories,salario_acumulado,meses_transcurridos,ir_acumulado_anio,ir_acumulado_mes)
+
+#7 DETERMINO EL IR QUINCENAL POR SALARIOS
+if que_quincena_soy == 1:
+        ir_quincenal = ir_mensual / 2
+else:
+	ir_quincenal = (ir_mensual - ir_acumulado_mes)
+
+result = round(ir_quincenal,2)",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAR203_operm,PAR203,IR LABORAL POR INGRESOS OCASIONALES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,203,none,code,"#CALCULO DE IR LABORAL QUINCENAL PARA LOS SIGUIENTES ESCENARIOS
+# 1. IR para Pagos Ocasionales (Art. 19.2 del RL822)
+
+
+periodo_desde = ""'"" + str(payslip.date_to.year) + ""-"" + str(payslip.date_to.month) +""-01"" + ""'""
+periodo_hasta = ""'"" + str(payslip.date_to) + ""'""
+anio_desde = ""'"" + str(payslip.date_to.year) + ""-01-01"" + ""'""
+anio_hasta = ""'"" + str(payslip.date_to.year) + ""-12-31"" + ""'""
+
+#1 DETERMINO EN QUE QUINCENA ESTOY
+if payslip.date_to.day <= 15: que_quincena_soy = 1
+else: que_quincena_soy = 2
+
+#2 DETERMINO EL SALARIO MENSUAL
+if que_quincena_soy == 1: # SI ESTOY EN LA QUINCENA 1, PROYECTAR LOS INGRESOS A MES, ES DECIR X2
+        salario_mensual_antes_de_inss = BASICT * 2
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+else: #DEBO SUMAR LOS INGRESOS DE TODO EL MES
+        try: salario_mensual_acumulado = payslip.sum ('BASICT',periodo_desde, periodo_hasta)
+        except: salario_mensual_acumulado = 0
+        salario_mensual_antes_de_inss = (salario_mensual_acumulado + BASICT)
+        inss_salario_mensual = salario_mensual_antes_de_inss * 0.07
+        salario_mensual_neto = salario_mensual_antes_de_inss - inss_salario_mensual
+
+#3 DETERMINO EL SALARIO ACUMULADO Y LOS INGRESOS EVENTUALES
+try: salario_anual_acumulado = payslip.sum ('BASICT',anio_desde, periodo_desde)
+except: salario_anual_acumulado = 0
+
+#3.1 DETERMINO EL SALARIO ACMULUADO
+salario_acumulado_antes_de_inss = salario_mensual_antes_de_inss + salario_anual_acumulado + contract.saldo_ingreso_bruto
+inss_salario_acumulado = salario_acumulado_antes_de_inss * 0.07
+salario_acumulado = salario_acumulado_antes_de_inss - inss_salario_acumulado
+
+#3.2 DETERMINO LOS INGRESOS OCASIONALES
+ingresos_ocasionales_antes_de_inss = INGOT
+inss_ingresos_ocasionales = ingresos_ocasionales_antes_de_inss * 0.07
+ingresos_ocasionales = ingresos_ocasionales_antes_de_inss - inss_ingresos_ocasionales
+
+#4 DETERMINO LOS MESES TRANSCURRIDOS
+nominas_cerradas = contract.saldo_ir_no_quincenas + contract.nominas_pagadas
+
+if nominas_cerradas == 0: meses_transcurridos = 1.00
+else: meses_transcurridos = int((nominas_cerradas/2)+1)
+
+#5 CALCULO DEL IR POR INGRESO OCASIONAL
+ir_inge = compute_ir_inge(payslip,categories,salario_acumulado,meses_transcurridos,ingresos_ocasionales)
+
+result = round(ir_inge,2)",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.DED204_operm,DED204,IR LABORAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,204,none,code,result = PAR202 + PAR203,l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.DED205_operm,DED205,OTRAS DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,205,none,code,"try: result = round(inputs.DED205_01.amount,2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.DED206_operm,DED206,PENSIÓN ALIMENTICIA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,206,none,code,"try: input= inputs.DED206_01.amount
+except: input= 0
+
+if input > 0:
+	result = input
+else:
+	result = round(((GROSS - DED201) * (contract.pension_alimenticia / 100)),2)",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.DED299_operm,DED299,TOTAL DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DEDT,299,none,code,result = categories.DED,l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INO301_operm,INO301,ENFERMEDAD COMÚN (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,301,none,code,"try: result = round(inputs.INO301_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INO302_operm,INO302,ACCIDENTE COMÚN (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,302,none,code,"try: result = round(inputs.INO302_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INO303_operm,INO303,MATERNIDAD (INSS),VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,303,none,code,"try: result = round(inputs.INO303_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INO304_operm,INO304,VIÁTICOS ALIMENTACION,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,304,none,code,"try: result = round(inputs.INO304_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INO305_operm,INO305,VIÁTICOS TRANSPORTE,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,305,none,code,"try: result = round(inputs.INO305_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INO306_operm,INO306,DEPRECIACION,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,306,none,code,"try: result = round(inputs.INO306_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INO307_operm,INO307,OTROS INGRESOS NO GRAVABLES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INO,307,none,code,"try: result = round(inputs.INO307_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.INO399_operm,INO399,TOTAL INGRESO NO GRAVABLE,VERDADERO,l10n_ni_hr_payroll_s_rule_category.INOT,399,none,code,result = categories.INO,l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAT501_operm,PAT501,INSS PATRONAL,FALSO,l10n_ni_hr_payroll_s_rule_category.PATR,501,none,code,"try: result = round((categories.GROSS * 0.225),2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAT502_operm,PAT502,INATEC,FALSO,l10n_ni_hr_payroll_s_rule_category.PATR,502,none,code,"try: result = round((categories.GROSS  * 0.02),2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PROV601_operm,PROV601,VACACIONES,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,601,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PROV602_operm,PROV602,AGUINALDO,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,602,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PROV603_operm,PROV603,INDEMNIZACIÓN,FALSO,l10n_ni_hr_payroll_s_rule_category.PROV,603,none,code,"try: result = round(((BASICT - BASIC103) * 0.083333333333333), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.NET_operm,NET,NETO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.NET,999,none,code,"result = round(((categories.BASIC+ categories.INO) - categories.DED),2)",l10n_ni_hr_payroll_structure.mensual_oper
+l10n_ni_hr_payroll_rule.PAR001_servpq,PAR001,SALARIO MENSUAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,1,none,code,result = contract.wage,l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.PAR002_servpq,PAR002,SALARIO POR DÍA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,2,none,code,"try: result = (PAR001 * 12) / 360
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.PAR003_servpq,PAR003,SALARIO POR HORA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,3,none,code,"try: result = PAR002 / 8
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.PAR004_servpq,PAR004,DÍAS TRABAJADOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,4,none,code,"contrato_administrativo = 1
+if contrato_administrativo == 1: dias_trabajados = 13
+else: dias_trabajados = worked_days.WORK100.number_of_days
+
+ #TIPOS DE AUSENCIAS QUE RESTAN DÍAS TRABAJADOS
+ #PAGADOS
+try: vacaciones = worked_days.VAC.number_of_days
+except: vacaciones = 0.00
+
+try: enfermedad = worked_days.ENF.number_of_days
+except: enfermedad = 0.00
+
+try: accidente = worked_days.ACC.number_of_days
+except: accidente = 0.00
+
+try: maternidad = worked_days.MAT.number_of_days
+except: maternidad = 0.00
+
+try: permiso_cgs = worked_days.CGS.number_of_days
+except: permiso_cgs = 0.00
+
+ #NO PAGADOS
+try: permiso_sgs = worked_days.SGD.number_of_days
+except: permiso_sgs = 0.00
+
+try: permiso_sgs_h = worked_days.SGH.number_of_days
+except: permiso_sgs_h = 0.00
+
+try: ausencia = worked_days.AUS.number_of_days
+except: ausencia = 0.00
+
+try: ouf_of_contract= worked_days.OUT.number_of_days
+except: ouf_of_contract= 0.00
+
+try: result = dias_trabajados - vacaciones - enfermedad - accidente - maternidad - permiso_cgs - permiso_sgs - permiso_sgs_h - ausencia - ouf_of_contract
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.BASIC101_servpq,BASIC101,SALARIO BÁSICO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,101,none,code,"try: result = round((PAR002 * PAR004), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.BASIC112_servpq,BASIC112,OTROS INGRESOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,112,none,code,"try: result = round(inputs.BASIC112_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.BASICT_servpq,BASICT,TOTAL INGRESOS SALARIO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASICT,149,none,code,result = categories.BASIC,l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.GROSS_servpq,GROSS,BRUTO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.GROSS,199,none,code,result = categories.BASIC + categories.INGO,l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.DED204_servpq,DED204,IR LABORAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,204,none,code,result = PAR202 + PAR203,l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.DED205_servpq,DED205,OTRAS DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,205,none,code,"try: result = round(inputs.DED205_01.amount,2)
+except: result = 0",l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.DED299_servpq,DED299,TOTAL DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DEDT,299,none,code,result = categories.DED,l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.NET_servpq,NET,NETO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.NET,999,none,code,"result = round(((categories.BASIC+ categories.INO) - categories.DED),2)",l10n_ni_hr_payroll_structure.quincenal_servp
+l10n_ni_hr_payroll_rule.PAR001_servpm,PAR001,SALARIO MENSUAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,1,none,code,result = contract.wage,l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.PAR002_servpm,PAR002,SALARIO POR DÍA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,2,none,code,"try: result = (PAR001 * 12) / 360
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.PAR003_servpm,PAR003,SALARIO POR HORA,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,3,none,code,"try: result = PAR002 / 8
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.PAR004_servpm,PAR004,DÍAS TRABAJADOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.PAR,4,none,code,"contrato_administrativo = 1
+if contrato_administrativo == 1: dias_trabajados = 13
+else: dias_trabajados = worked_days.WORK100.number_of_days
+
+ #TIPOS DE AUSENCIAS QUE RESTAN DÍAS TRABAJADOS
+ #PAGADOS
+try: vacaciones = worked_days.VAC.number_of_days
+except: vacaciones = 0.00
+
+try: enfermedad = worked_days.ENF.number_of_days
+except: enfermedad = 0.00
+
+try: accidente = worked_days.ACC.number_of_days
+except: accidente = 0.00
+
+try: maternidad = worked_days.MAT.number_of_days
+except: maternidad = 0.00
+
+try: permiso_cgs = worked_days.CGS.number_of_days
+except: permiso_cgs = 0.00
+
+ #NO PAGADOS
+try: permiso_sgs = worked_days.SGD.number_of_days
+except: permiso_sgs = 0.00
+
+try: permiso_sgs_h = worked_days.SGH.number_of_days
+except: permiso_sgs_h = 0.00
+
+try: ausencia = worked_days.AUS.number_of_days
+except: ausencia = 0.00
+
+try: ouf_of_contract= worked_days.OUT.number_of_days
+except: ouf_of_contract= 0.00
+
+try: result = dias_trabajados - vacaciones - enfermedad - accidente - maternidad - permiso_cgs - permiso_sgs - permiso_sgs_h - ausencia - ouf_of_contract
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.BASIC101_servpm,BASIC101,SALARIO BÁSICO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,101,none,code,"try: result = round((PAR002 * PAR004), 2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.BASIC112_servpm,BASIC112,OTROS INGRESOS,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASIC,112,none,code,"try: result = round(inputs.BASIC112_01.amount,2)
+except: result = 0.00",l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.BASICT_servpm,BASICT,TOTAL INGRESOS SALARIO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.BASICT,149,none,code,result = categories.BASIC,l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.GROSS_servpm,GROSS,BRUTO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.GROSS,199,none,code,result = categories.BASIC + categories.INGO,l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.DED204_servpm,DED204,IR LABORAL,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,204,none,code,result = PAR202 + PAR203,l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.DED205_servpm,DED205,OTRAS DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DED,205,none,code,"try: result = round(inputs.DED205_01.amount,2)
+except: result = 0",l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.DED299_servpm,DED299,TOTAL DEDUCCIONES,VERDADERO,l10n_ni_hr_payroll_s_rule_category.DEDT,299,none,code,result = categories.DED,l10n_ni_hr_payroll_structure.mensual_servp
+l10n_ni_hr_payroll_rule.NET_servpm,NET,NETO,VERDADERO,l10n_ni_hr_payroll_s_rule_category.NET,999,none,code,"result = round(((categories.BASIC+ categories.INO) - categories.DED),2)",l10n_ni_hr_payroll_structure.mensual_servp

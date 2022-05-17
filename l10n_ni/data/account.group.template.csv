@@ -1,0 +1,104 @@
+id,code_prefix_start,code_prefix_end,name,chart_template_id/id
+g_1,1,,"""ACTIVOS""",l10n_ni.l10n_ni_chart_template
+g_11,11,,"""ACTIVOS CORRIENTES""",l10n_ni.l10n_ni_chart_template
+g_1101,1101,,"""EFECTIVO Y EQUIVALENTES AL EFECTIVO""",l10n_ni.l10n_ni_chart_template
+g_110101,110101,,"""CAJA GENERAL""",l10n_ni.l10n_ni_chart_template
+g_110102,110102,,"""CAJA CHICA""",l10n_ni.l10n_ni_chart_template
+g_110103,110103,,"""BANCOS""",l10n_ni.l10n_ni_chart_template
+g_1102,1102,,"""CUENTAS POR COBRAR""",l10n_ni.l10n_ni_chart_template
+g_110201,110201,,"""CUENTAS POR COBRAR COMERCIALES""",l10n_ni.l10n_ni_chart_template
+g_110202,110202,,"""OTRAS CUENTAS POR COBRAR""",l10n_ni.l10n_ni_chart_template
+g_1103,1103,,"""ANTICIPOS""",l10n_ni.l10n_ni_chart_template
+g_110301,110301,,"""ANTICIPOS A PROVEEDORES""",l10n_ni.l10n_ni_chart_template
+g_1104,1104,,"""INVENTARIOS""",l10n_ni.l10n_ni_chart_template
+g_110401,110401,,"""MATERIAS PRIMAS""",l10n_ni.l10n_ni_chart_template
+g_110402,110402,,"""PRODUCTO TERMINADO""",l10n_ni.l10n_ni_chart_template
+g_110403,110403,,"""INVENTARIO EN TRANSITO""",l10n_ni.l10n_ni_chart_template
+g_1105,1105,,"""GASTOS PAGADOS POR ANTICIPADO""",l10n_ni.l10n_ni_chart_template
+g_110501,110501,,"""SERVICIOS""",l10n_ni.l10n_ni_chart_template
+g_1106,1106,,"""IMPUESTOS PAGADOS POR ANTICIPADO""",l10n_ni.l10n_ni_chart_template
+g_110601,110601,,"""IVA POR COBRAR - CREDITO FISCAL""",l10n_ni.l10n_ni_chart_template
+g_110602,110602,,"""IMPUESTOS MUNICIPALES""",l10n_ni.l10n_ni_chart_template
+g_110603,110603,,"""IMPUESTOS DE RENTA RETENIDOS""",l10n_ni.l10n_ni_chart_template
+g_12,12,,"""ACTIVOS NO CORRIENTES""",l10n_ni.l10n_ni_chart_template
+g_1201,1201,,"""PROPIEDAD, PLANTA Y EQUIPOS""",l10n_ni.l10n_ni_chart_template
+g_120101,120101,,"""BIENES INMUEBLES  TERRENOS Y EDIFICIOS""",l10n_ni.l10n_ni_chart_template
+g_120102,120102,,"""BIENES MOBILIARIOS Y EQUIPOS""",l10n_ni.l10n_ni_chart_template
+g_120103,120103,,"""EQUIPOS DE  TRANSPORTE""",l10n_ni.l10n_ni_chart_template
+g_120104,120104,,"""EQUIPOS Y PLANTA DE PROCESAMIENTO""",l10n_ni.l10n_ni_chart_template
+g_120105,120105,,"""CONSTRUCCIONES Y PROYECTOS EN PROCESO""",l10n_ni.l10n_ni_chart_template
+g_120106,120106,,"""DEPRECIACIÓN ACUMULADA""",l10n_ni.l10n_ni_chart_template
+g_1202,1202,,"""ACTIVOS INTANGIBLES""",l10n_ni.l10n_ni_chart_template
+g_120201,120201,,"""MARCAS Y PATENTES""",l10n_ni.l10n_ni_chart_template
+g_1203,1203,,"""ACTIVOS DIFERIDOS""",l10n_ni.l10n_ni_chart_template
+g_120301,120301,,"""GASTOS PAGADOS POR ANTICIPADO""",l10n_ni.l10n_ni_chart_template
+g_2,2,,"""PASIVOS""",l10n_ni.l10n_ni_chart_template
+g_21,21,,"""PASIVOS CORRIENTES""",l10n_ni.l10n_ni_chart_template
+g_2101,2101,,"""CUENTAS POR PAGAR COMERCIALES""",l10n_ni.l10n_ni_chart_template
+g_210101,210101,,"""PROVEEDORES""",l10n_ni.l10n_ni_chart_template
+g_2102,2102,,"""CUENTAS POR PAGAR NO COMERCIALES""",l10n_ni.l10n_ni_chart_template
+g_210201,210201,,"""PRÉSTAMOS POR PAGAR A CORTO PLAZO""",l10n_ni.l10n_ni_chart_template
+g_2103,2103,,"""GASTOS ACUMULADOS POR PAGAR""",l10n_ni.l10n_ni_chart_template
+g_210301,210301,,"""REMUNERACIONES Y PRESTACIONES POR PAGAR A EMPLEADOS""",l10n_ni.l10n_ni_chart_template
+g_2104,2104,,"""IMPUESTOS POR PAGAR""",l10n_ni.l10n_ni_chart_template
+g_210401,210401,,"""IVA POR PAGAR - DÉBITO FISCAL""",l10n_ni.l10n_ni_chart_template
+g_210402,210402,,"""IMPUESTOS MUNICIPLES""",l10n_ni.l10n_ni_chart_template
+g_210403,210403,,"""RETENCIONES POR PAGAR""",l10n_ni.l10n_ni_chart_template
+g_2105,2105,,"""ANTICIPOS POR PAGAR""",l10n_ni.l10n_ni_chart_template
+g_210501,210501,,"""ANTICIPOS RECIBIDOS DE CLIENTES""",l10n_ni.l10n_ni_chart_template
+g_22,22,,"""PASIVOS NO CORRIENTES""",l10n_ni.l10n_ni_chart_template
+g_2201,2201,,"""CUENTAS POR PAGAR COMERCIALES""",l10n_ni.l10n_ni_chart_template
+g_220101,220101,,"""PRÉSTAMOS POR PAGAR A LARGO PLAZO""",l10n_ni.l10n_ni_chart_template
+g_2202,2202,,"""CUENTAS POR PAGAR NO COMERCIALES""",l10n_ni.l10n_ni_chart_template
+g_220201,220201,,"""PASIVOS DIFERIDOS""",l10n_ni.l10n_ni_chart_template
+g_3,3,,"""PATRIMONIO""",l10n_ni.l10n_ni_chart_template
+g_31,31,,"""CAPITAL SOCIAL""",l10n_ni.l10n_ni_chart_template
+g_3101,3101,,"""APORTACIONES""",l10n_ni.l10n_ni_chart_template
+g_310101,310101,,"""CAPITAL SUSCRITO""",l10n_ni.l10n_ni_chart_template
+g_310102,310102,,"""APORTES SOCIALES""",l10n_ni.l10n_ni_chart_template
+g_32,32,,"""RESERVAS""",l10n_ni.l10n_ni_chart_template
+g_3201,3201,,"""RESERVAS""",l10n_ni.l10n_ni_chart_template
+g_320101,320101,,"""RESERVAS""",l10n_ni.l10n_ni_chart_template
+g_33,33,,"""RESULTADOS DEL EJERCICIO""",l10n_ni.l10n_ni_chart_template
+g_3301,3301,,"""RESULTADOS DEL EJERCICIO""",l10n_ni.l10n_ni_chart_template
+g_330101,330101,,"""RESULTADO DEL PERIODO ACTUAL""",l10n_ni.l10n_ni_chart_template
+g_330102,330102,,"""RESULTADOS DE PERIODOS ANTERIORES""",l10n_ni.l10n_ni_chart_template
+g_330103,330103,,"""AJUSTES RESULTADOS DE PERIODOS ANTERIORES""",l10n_ni.l10n_ni_chart_template
+g_4,4,,"""INGRESOS""",l10n_ni.l10n_ni_chart_template
+g_41,41,,"""INGRESOS POR VENTAS""",l10n_ni.l10n_ni_chart_template
+g_4101,4101,,"""INGRESOS POR VENTAS DE BIENES Y SERVICIOS""",l10n_ni.l10n_ni_chart_template
+g_410101,410101,,"""INGRESOS POR VENTA DE BIENES""",l10n_ni.l10n_ni_chart_template
+g_410102,410102,,"""INGRESOS POR VENTA DE SERVICIOS""",l10n_ni.l10n_ni_chart_template
+g_42,42,,"""OTROS INGRESOS""",l10n_ni.l10n_ni_chart_template
+g_4201,4201,,"""OTROS INGRESOS""",l10n_ni.l10n_ni_chart_template
+g_420101,420101,,"""OTROS INGRESOS""",l10n_ni.l10n_ni_chart_template
+g_5,5,,"""GASTOS""",l10n_ni.l10n_ni_chart_template
+g_51,51,,"""GASTOS GENERALES""",l10n_ni.l10n_ni_chart_template
+g_5101,5101,,"""GASTOS DE PERSONAL""",l10n_ni.l10n_ni_chart_template
+g_510101,510101,,"""GASTOS DE PERSONAL""",l10n_ni.l10n_ni_chart_template
+g_5102,5102,,"""COMPRAS Y SERVICIOS""",l10n_ni.l10n_ni_chart_template
+g_510201,510201,,"""COMPRAS Y SERVICIOS""",l10n_ni.l10n_ni_chart_template
+g_5103,5103,,"""MANTENIMIENTO Y REPARACIONES""",l10n_ni.l10n_ni_chart_template
+g_510301,510301,,"""MANTENIMIENTO Y REPARACIONES""",l10n_ni.l10n_ni_chart_template
+g_5104,5104,,"""GASTOS POR DEPRECIACIÓN""",l10n_ni.l10n_ni_chart_template
+g_510401,510401,,"""GASTOS POR DEPRECIACIÓN""",l10n_ni.l10n_ni_chart_template
+g_5105,5105,,"""GASTOS CUENTAS INCOBRABLES""",l10n_ni.l10n_ni_chart_template
+g_510501,510501,,"""GASTOS CUENTAS INCOBRABLES""",l10n_ni.l10n_ni_chart_template
+g_5106,5106,,"""INATEC E INSS PATRONAL""",l10n_ni.l10n_ni_chart_template
+g_510601,510601,,"""INATEC E INSS PATRONAL""",l10n_ni.l10n_ni_chart_template
+g_5107,5107,,"""SEGUROS""",l10n_ni.l10n_ni_chart_template
+g_510701,510701,,"""SEGUROS""",l10n_ni.l10n_ni_chart_template
+g_5108,5108,,"""IMPUESTOS ALCALDÍAS""",l10n_ni.l10n_ni_chart_template
+g_510801,510801,,"""IMPUESTOS ALCALDÍAS""",l10n_ni.l10n_ni_chart_template
+g_5109,5109,,"""GASTOS DE AMORTIZACIÓN""",l10n_ni.l10n_ni_chart_template
+g_510901,510901,,"""GASTOS DE AMORTIZACIÓN""",l10n_ni.l10n_ni_chart_template
+g_5110,5110,,"""GASTO NO DEDUCIBLE""",l10n_ni.l10n_ni_chart_template
+g_511001,511001,,"""GASTO NO DEDUCIBLE""",l10n_ni.l10n_ni_chart_template
+g_5111,5111,,"""GASTOS FINANCIEROS""",l10n_ni.l10n_ni_chart_template
+g_511101,511101,,"""GASTOS FINANCIEROS""",l10n_ni.l10n_ni_chart_template
+g_5112,5112,,"""OTROS GASTOS""",l10n_ni.l10n_ni_chart_template
+g_511201,511201,,"""OTROS GASTOS""",l10n_ni.l10n_ni_chart_template
+g_6,6,,"""COSTOS DE VENTAS""",l10n_ni.l10n_ni_chart_template
+g_61,61,,"""COSTOS DE VENTAS Y PRESTACIÓN DE SERVICIOS""",l10n_ni.l10n_ni_chart_template
+g_6101,6101,,"""COSTOS DE VENTAS Y PRESTACIÓN DE SERVICIOS""",l10n_ni.l10n_ni_chart_template
+g_610101,610101,,"""COSTOS DE VENTAS Y PRESTACIÓN DE SERVICIOS""",l10n_ni.l10n_ni_chart_template

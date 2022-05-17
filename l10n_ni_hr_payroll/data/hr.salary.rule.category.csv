@@ -1,0 +1,14 @@
+id,code,name,note
+l10n_ni_hr_payroll_s_rule_category.PAR,PAR,PARÁMETROS,Registra toda regla que funcione como parámetro ya sea para cálculo o para mostrar información requerida en la nómina.
+l10n_ni_hr_payroll_s_rule_category.BASIC,BASIC,INGRESOS SALARIO,Registra toda regla que signifique un ingreso gravable del empleado.
+l10n_ni_hr_payroll_s_rule_category.BASICT,BASICT,TOTAL INGRESOS SALARIO,Es el importe total de todos los Ingresos por Salarios.
+l10n_ni_hr_payroll_s_rule_category.INGO,INGO,INGRESOS OCASIONALES,Registra toda regla que signifique un ingreso gravable ocasional del empleado.
+l10n_ni_hr_payroll_s_rule_category.INGOT,INGOT,TOTAL INGRESOS OCASIONALES,Es el importe total de todos los Ingresos Ocasionales.
+l10n_ni_hr_payroll_s_rule_category.GROSS,GROSS,BRUTO,"Es el importe total de todos los ingresos (e.g., sueldos, salarios, comisiones o cualquier otra remuneración al empleado antes de rebajar los impuestos y otras deducciones)."
+l10n_ni_hr_payroll_s_rule_category.DED,DED,DEDUCCIONES,Registra toda regla que signifique una deducción al empleado.
+l10n_ni_hr_payroll_s_rule_category.DEDT,DEDT,TOTAL DEDUCCIONES,Es el importe total de todas las deducciones aplicadas al empleado.
+l10n_ni_hr_payroll_s_rule_category.INO,INO,INGRESO NO GRAVABLE,"Ingresos que no son sujetos a impuestos (e.g., subsidios, aguinaldo, indemnización)."
+l10n_ni_hr_payroll_s_rule_category.INOT,INOT,TOTAL INGRESO NO GRAVABLE,Es el importe total de todos los Ingresos que no son sujetos a impuestos.
+l10n_ni_hr_payroll_s_rule_category.NET,NET,NETO,"Es igual a la remuneración bruta menos todas las deducciones más los ingresos no gravables, es el importe que en realidad le queda al empleado."
+l10n_ni_hr_payroll_s_rule_category.PATR,PATR,PATRONAL,INSS PATRONAL e INATEC.
+l10n_ni_hr_payroll_s_rule_category.PROV,PROV,PROVISIONES,"Provisión para Vacaciones, Aguinaldo e Indemnización."

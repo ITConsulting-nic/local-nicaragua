@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Cuentas por defectode nuestro Plan de cuentas para nuestros módulos
+    -->
+    <record id="l10n_ni_chart_template" model="account.chart.template">
+      <!-- CxC y CxP
+      Receivable Account
+      Payable Account
+      -->
+      <field name="property_account_receivable_id" ref="a.11020101"/>
+      <field name="property_account_payable_id" ref="a.21010101"/>
+      <!--Banco y Caja
+      Journal Suspense Account
+      Cash Difference Income Account
+      Cash Difference Expense Account
+      -->
+      <field name="account_journal_suspense_account_id" ref="a.11010102"/>
+      <field name="default_cash_difference_income_account_id" ref=""/>
+      <field name="default_cash_difference_expense_account_id" ref=""/>
+      <!-- Categorias de productos
+      Category of Income Account
+      Category of Expense Account
+      Account Template for Stock Valuation
+      Input Account for Stock Valuation
+      Output Account for Stock Valuation
+      -->
+      <field name="property_account_income_categ_id" ref="a.41010201"/>
+      <field name="property_account_expense_categ_id" ref="a.61010101"/>
+      <field name="property_stock_valuation_account_id" ref="a.11040201"/>
+      <field name="property_stock_account_input_categ_id" ref="a.11040301"/>
+      <field name="property_stock_account_output_categ_id" ref="a.11040301"/>
+      <!-- Plantilla de productos -->
+      <field name="property_account_income_id" ref="a.41010201"/>
+      <field name="property_account_expense_id" ref="a.61010101"/>
+      <!-- Diferencial cambiario
+      Gain Exchange Rate Account
+      Loss Exchange Rate Account
+      -->
+      <field name="income_currency_exchange_account_id" ref="a.42010102"/>
+      <field name="expense_currency_exchange_account_id" ref="a.51110101"/>
+      <!-- IVA -->
+      <field name="property_tax_payable_account_id" ref="a.21040101"/>
+      <field name="property_tax_receivable_account_id" ref="a.11060101"/>
+      <!-- Punto de Venta
+      PoS receivable account
+      -->
+      <field name="default_pos_receivable_account_id" ref="a.11020101" />
+    </record>
+</odoo>
