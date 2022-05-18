@@ -1,0 +1,622 @@
+<odoo>
+    <record model="report.paperformat" id="paperformat_cost_distribution_reports">
+        <field name="name">paperformat.asset.cost_distribution.report</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">45</field>
+        <field name="margin_right">7</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+    <report id="report_purchase_landed_cost"
+            string="LIQUIDACIÓN DE EMBARQUES"
+            model="purchase.cost.distribution"
+            paperformat="paperformat_cost_distribution_reports"
+            file="LIQUIDACIÓN DE EMBARQUES"
+            report_type="qweb-pdf"
+            name="purchase_landed_cost.report_purchase_cost_distribution_template"
+
+    />
+
+    <template id="report_purchase_cost_distribution_template">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-if="not o" t-set="o" t-value="doc"/>
+                    <t t-if="not company">
+                        <!-- Multicompany -->
+                        <t t-if="company_id">
+                            <t t-set="company" t-value="company_id"/>
+                        </t>
+                        <t t-elif="o and 'company_id' in o">
+                            <t t-set="company" t-value="o.company_id.sudo()"/>
+                        </t>
+                        <t t-else="else">
+                            <t t-set="company" t-value="res_company"/>
+                        </t>
+                    </t>
+                    <div class="header">
+                        <div class="o_boxed_header">
+                            <div class="row mb5">
+                                <div class="col-4">
+                                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                                </div>
+                                <div class="col-8 text-right mb2">
+                                    <h4 class="mt0" t-field="company.report_header"/>
+                                    <div name="company_address" class="mb4">
+                                        <!--<span class="company_address" t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: true}"/>-->
+                                        <span t-field="company.partner_id.name"/>
+                                        <br/>
+                                        <span t-field="company.partner_id.street"/>
+                                        <br/>
+                                        <span t-field="company.partner_id.state_id.name"/>
+                                        <span t-field="company.partner_id.country_id.name"/>
+                                        <br/>
+                                        Tel:
+                                        <span t-field="company.partner_id.phone"/>
+                                        <br/>
+                                        RUC:
+                                        <span t-field="company.vat"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page">
+                        <div class="row mt48 mb32"></div>
+
+                            <div class="row">
+                                <div class="col-10 offset-1 text-center justify-content: center; align-items: center;">
+                                    <div align="center">
+                                        <h5>
+                                            <span>LIQUIDACIÓN DE EMBARQUES</span>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" align="center">
+                                <div class="col-10 offset-1 text-center justify-content: center; align-items: center;">
+                                    <div style="font-size: 12px">
+                                        <span>EMBARQUE REF :</span>
+                                        <span t-field="o.name"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" align="center">
+                                <div class="col-10 offset-1 text-center justify-content: center; align-items: center;">
+                                    <div style="font-size: 12px">
+                                        <span>PROVEEDOR :</span>
+                                        <span t-esc="o.cost_lines[0].partner.name"/>
+<!--                                        <span t-esc="proveedor"/>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" align="center">
+                                <div class="col-10 offset-1 text-center justify-content: center; align-items: center;"
+                                     name="div_incoming_title">
+                                    <div style="font-size: 12px">
+                                        <span>FECHA DE INGRESO :</span>
+                                        <span t-field="o.date"/>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        <div class="row">
+                            <p></p>
+                        </div>
+                        <div class="row">
+                            <p></p>
+                        </div>
+                        <div class="row">
+                            <p></p>
+                        </div>
+                        <div class="row">
+                            <p></p>
+                        </div>
+                        <div class="row">
+                            <p></p>
+                        </div>
+
+                        <table class="table table-sm" t-if="o.cost_lines" border="1" bordercolor="#CCCCCC">
+                            <thead>
+                                <tr style="height:25px">
+                                    <td bordercolor="#FFFFFF" colspan="3"></td>
+                                    <td style="font-size: 10px" colspan="6">
+                                        <strong>
+                                            <div align="center">DOLARES</div>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong></strong>
+                                    </td>
+                                    <td style="font-size: 9px">Tipo de Cambio:
+                                        <br/>
+<!--                                        <span class="text-center"><t t-esc="o.tasa_cambio"/></span>-->
+                                        <span class="text-center"></span> <t t-esc="'%.4f'%(o.tasa_cambio)"/>
+                                    </td>
+                                    <td style="font-size: 10px" colspan="6">
+                                        <strong>
+                                            <div align="center">CORDOBAS</div>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr style="font-size: 10px">
+                                    <td class="text-center" name="th_marca_raloy">
+
+                                    </td>
+
+                                    <td></td>
+                                    <td class="text-center">
+                                        <strong>COSTO</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>COSTO</strong>
+                                    </td>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <strong>TOTAL</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>CIF</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>VALOR</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>DERECHOS</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>CUENTA</strong>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <strong>COSTO</strong>
+                                    </td>
+                                    <td class="text-center">COSTO$</td>
+
+                                </tr>
+                                <tr style="font-size: 10px">
+                                    <td class="text-center" width="200" name="th_producto">
+                                        <strong>PRODUCTOS</strong>
+                                    </td>
+<!--                                    <td class="text-center" name="th_clave">-->
+<!--                                        <strong>CLAVE</strong>-->
+<!--                                    </td>-->
+                                    <td class="text-center" name="th_cant">
+                                        <strong>CANT</strong>
+                                    </td>
+                                    <td class="text-center" name="th_unit">
+                                        <strong>UNIT</strong>
+                                    </td>
+                                    <td class="text-center" name="th_total">
+                                        <strong>TOTAL</strong>
+                                    </td>
+<!--                                    <td class="text-center" name="th_dcto">-->
+<!--                                        <strong>DCTO</strong>-->
+<!--                                    </td>-->
+                                    <td class="text-center" name="th_seg">
+                                        <strong>SEG</strong>
+                                    </td>
+                                    <td class="text-center" name="th_freight">
+                                        <strong>FREIGHT</strong>
+                                    </td>
+                                    <td class="text-center" name="th_cif">
+                                        <strong>CIF</strong>
+                                    </td>
+                                    <td class="text-center" name="th_unitario">
+                                        <strong>UNITARIO</strong>
+                                    </td>
+                                    <td class="text-center" name="th_cif_cs">
+                                        <strong>CIF CS$</strong>
+                                    </td>
+                                    <td class="text-center" name="th_generales">
+                                        <strong>GENERALES</strong>
+                                    </td>
+                                    <td class="text-center" name="th_registro">
+                                        <strong>REGISTRO</strong>
+                                    </td>
+                                    <td class="text-center" name="th_isc">
+                                        <strong>ALMACEN</strong>
+                                    </td>
+                                    <td class="text-center" name="th_isc">
+                                        <strong>ISC</strong>
+                                    </td>
+                                    <td class="text-center" name="th_total">
+                                        <strong>TOTAL</strong>
+                                    </td>
+                                    <td class="text-center" name="th_unitario">
+                                        <strong>UNITARIO</strong>
+                                    </td>
+                                    <td class="text-center" name="th_costo">
+<!--                                        <span class="text-center"><t t-esc="o.tasa_cambio"/></span>-->
+                                        <span class="text-center"></span> <t t-esc="'%.4f'%(o.tasa_cambio)"/>
+                                    </td>
+
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <t t-set="i" t-value="1"/>
+                                <t t-set="cant" t-value="0"/>
+                                <t t-set="cost_unit" t-value="0"/>
+                                <t t-set="cost_total" t-value="0"/>
+                                <t t-set="total" t-value="0"/>
+                                <t t-set="total_dcto" t-value="0"/>
+
+                                <t t-set="cost_unitario" t-value="0"/>
+                                <t t-set="insurance_total" t-value="0"/>
+                                <t t-set="flete_total" t-value="0"/>
+                                <t t-set="derecho_generales_total" t-value="0"/>
+                                <t t-set="cuenta_registro_total" t-value="0"/>
+                                <t t-set="impuesto_isc_total" t-value="0"/>
+                                <t t-set="almacen_total" t-value="0"/>
+                                <t t-set="total_fright" t-value="0"/>
+                                <t t-set="freight" t-value="0"/>
+                                <t t-set="cif_unitario" t-value="0"/>
+                                <t t-set="cif_unitario_aux" t-value="0"/>
+                                <t t-set="valor_cif" t-value="0"/>
+                                <t t-set="total_cif_count" t-value="0"/>
+                                <t t-set="cif_unitario_count" t-value="0"/>
+                                <t t-set="valor_cif_count" t-value="0"/>
+                                <t t-set="cost_cost" t-value="0"/>
+                                <t t-set="costo_count" t-value="0"/>
+
+                                <t t-set="dcto" t-value="0"/>
+                                <t t-set="seg" t-value="0"/>
+
+                                <t t-set="generales" t-value="0"/>
+                                <t t-set="registro" t-value="0"/>
+                                <t t-set="isc" t-value="0"/>
+                                <t t-set="costo_total_aux" t-value="0"/>
+                                <t t-set="dcto_aux" t-value="0"/>
+                                <t t-set="total_aux" t-value="0"/>
+                                <t t-set="cost_unitario_aux" t-value="0"/>
+                                <t t-set="price_unit_vendor_aux" t-value="0"/>
+
+                                <t t-set="unitario" t-value="0"/>
+<!--                                <t t-set="tax_line_ids_sorted" t-value="o.cost_lines.sorted(key=lambda record: record.product_id, reverse=False)"/>-->
+                                <t t-foreach="o.cost_lines" t-as="move">
+                                    <t t-set="cant" t-value="cant+move.product_qty"/>
+
+                                    <div name="cost_unit">
+                                         <t t-if="move.purchase_line_id.currency_id.name == 'USD'">
+                                             <t t-set="cost_unit" t-value="move.product_price_unit / o.tasa_cambio"/>
+                                         </t>
+                                        <t t-if="move.purchase_line_id.currency_id.name == 'NIO'">
+                                             <t t-set="cost_unit" t-value="move.product_price_unit"/>
+                                         </t>
+
+
+
+<!--                                       <t t-set="cost_unit" t-value="move.price_unit_old"/>-->
+                                    </div>
+
+<!--                                    <t t-set="cost_unit" t-value="cost_unit+move.product_price_unit"/>-->
+<!--                                    <t t-set="cost_unit" t-value="cost_unit+move.product_price_unit"/>-->
+
+
+                                    <t t-set="insurance" t-value="0"/>
+                                    <t t-set="flete" t-value="0"/>
+                                    <t t-set="derecho_generales" t-value="0"/>
+                                    <t t-set="cuenta_registro" t-value="0"/>
+                                    <t t-set="impuesto_isc" t-value="0"/>
+                                    <t t-set="almacen" t-value="0"/>
+
+                                    <t t-foreach="move.expense_lines" t-as="expen_line">
+
+<!--                                        <span> <span t-esc="move.discount_old * move.total_amount /100"/></span>&lt;!&ndash;DCTO&ndash;&gt;-->
+                                        <t t-if="expen_line.grup_type_cost == 'insurance'">
+                                            <t t-set="insurance" t-value="insurance+expen_line.expense_amount / o.tasa_cambio"/>
+                                        </t>
+                                        <t t-if="expen_line.grup_type_cost == 'der_gene'">
+                                            <t t-set="derecho_generales" t-value="derecho_generales+expen_line.expense_amount"/>
+                                        </t>
+                                        <t t-if="expen_line.grup_type_cost == 'cuenta_registro'">
+                                            <t t-set="cuenta_registro" t-value="cuenta_registro+expen_line.expense_amount"/>
+                                        </t>
+                                        <t t-if="expen_line.grup_type_cost == 'freigth_flete'">
+                                            <t t-set="flete" t-value="flete+expen_line.expense_amount / o.tasa_cambio"/>
+                                        </t>
+                                        <t t-if="expen_line.grup_type_cost == 'impuesto'">
+                                            <t t-set="impuesto_isc" t-value="impuesto_isc+expen_line.expense_amount"/>
+                                        </t>
+                                        <t t-if="expen_line.grup_type_cost == 'almacen'">
+                                            <t t-set="almacen" t-value="almacen+expen_line.expense_amount"/>
+
+                                        </t>
+
+                                    </t>
+
+
+                                    <t t-set="derecho_generales_total" t-value="derecho_generales_total+derecho_generales"/>
+                                    <t t-set="cuenta_registro_total" t-value="cuenta_registro_total+cuenta_registro"/>
+                                    <t t-set="flete_total" t-value="flete_total+flete"/>
+                                    <t t-set="impuesto_isc_total" t-value="impuesto_isc_total+impuesto_isc"/>
+                                    <t t-set="almacen_total" t-value="almacen_total+almacen"/>
+                                    <t t-set="insurance_total" t-value="insurance_total+insurance"/>
+
+                                    <t t-set="total_fright" t-value="move.product_price_unit+flete"/>
+
+
+
+
+                                     <t t-set="cif_unitario_count" t-value="cif_unitario_count+cif_unitario"/>
+
+
+
+                                     <t t-set="cost_cost" t-value="move.standard_price_new / o.tasa_cambio"/>
+                                     <t t-set="costo_count" t-value="costo_count + cost_cost"/>
+
+<!--                                    <t t-if="move.price_unit_vendor == 0">-->
+<!--                                        <t t-set="costo_total_aux" t-value="move.product_qty * 1"/>-->
+<!--                                    </t>-->
+<!--                                    <t t-if="move.price_unit_vendor != 0">-->
+<!--                                       -->
+<!--                                    </t>-->
+                                    <t t-set="costo_total_aux" t-value="move.product_qty * cost_unit"/>
+                                    <div name="dcto_aux">
+                                        <t t-set="dcto_aux" t-value="0"/>
+                                    </div>
+                                    <t t-set="dcto_aux" t-value="costo_total_aux * dcto_aux/100"/>
+
+<!--                                    <t t-if="not move.discount_old">-->
+<!--                                        -->
+<!--                                    </t>-->
+<!--                                    <t t-if="move.discount_old">-->
+<!--                                        <t t-set="dcto_aux" t-value="costo_total_aux * move.discount_old/100"/>-->
+<!--                                    </t>-->
+
+
+
+                                    <t t-set="total_cif_aux" t-value="costo_total_aux - dcto_aux + insurance + flete"/>
+
+                                    <t t-set="cif_unitario_aux" t-value="total_cif_aux/move.product_qty"/>
+
+                                    <t t-set="cif_unitario" t-value="cif_unitario_aux"/>
+
+
+
+                                    <t t-set="valor_cif" t-value="total_cif_aux * o.tasa_cambio"/>
+                                    <t t-set="total_aux" t-value="valor_cif+derecho_generales + cuenta_registro + almacen + impuesto_isc"/>
+                                    <t t-set="cost_unitario_aux" t-value="total_aux/move.product_qty"/>
+                                    <t t-set="costo_aux" t-value="cost_unitario_aux/o.tasa_cambio"/>
+
+                                    <t t-set="cost_total" t-value="cost_total+costo_total_aux"/>
+                                    <t t-set="total_dcto" t-value="total_dcto+dcto_aux"/>
+                                    <t t-set="total_cif_count" t-value="total_cif_count+total_cif_aux"/>
+                                    <t t-set="valor_cif_count" t-value="valor_cif_count+valor_cif"/>
+                                    <t t-set="total" t-value="total + total_aux"/>
+
+                                    <tr style="font-size: 10px">
+                                        <td>
+                                            <span t-field="move.product_id"/><br/><!--producto-->
+                                            <span t-esc="aux_dat"/>
+
+                                            <br/>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <!--cant-->
+<!--                                            <span t-esc="'%.2f'%(move.product_qty)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(move.product_qty)"/>
+                                            <br/>
+                                        </td>
+                                        <td class="text-right">
+<!--                                            <span t-esc="'%.2f'%(move.price_unit_vendor)"/>-->
+                                            <!--costo unitario-->
+<!--                                            <span t-esc="'{0:,.2f}'.format(move.product_price_unit)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(cost_unit)"/>
+                                        </td>
+                                        <td class="text-right"><!--costo total-->
+<!--                                            <span t-esc="'%.2f'%(costo_total_aux)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(costo_total_aux)"/>
+                                            <br/>
+                                        </td>
+<!--                                        <td class="text-right">-->
+<!--&lt;!&ndash;                                            <span>-</span><span t-esc="'%.2f'%(dcto_aux)"/>&ndash;&gt;-->
+<!--                                            &lt;!&ndash;DCTO&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <span>-</span><span t-esc="'{0:,.2f}'.format(dcto_aux)"/>&ndash;&gt;-->
+<!--                                            <br/>-->
+<!--                                        </td>-->
+                                        <td class="text-right">
+<!--                                            <span t-esc="'%.2f'%(insurance)"/>-->
+                                            <!--seg-->
+                                            <span t-esc="'{0:,.2f}'.format(insurance)"/>
+
+                                        </td>
+                                        <td class="text-right">
+<!--                                            <span t-esc="'%.2f'%(flete)"/>-->
+                                            <!--freight-->
+                                            <span t-esc="'{0:,.2f}'.format(flete)"/>
+
+                                            <br/>
+                                        </td>
+                                        <td class="text-right">
+<!--                                            <span t-esc="'%.2f'%(total_cif_aux)"/>-->
+                                            <!--total cif-->
+                                            <span t-esc="'{0:,.2f}'.format(total_cif_aux)"/>
+                                            <br/>
+                                        </td>
+                                        <td class="text-right">
+<!--                                           <span t-esc="'%.2f'%(cif_unitario)"/>-->
+                                            <!--cif unitario-->
+                                            <span t-esc="'{0:,.2f}'.format(cif_unitario)"/>
+                                            <br/>
+                                        </td>
+                                        <td class="text-right">
+<!--                                            <span t-esc="'%.2f'%(valor_cif)"/>-->
+                                            <!--valor cif C$-->
+                                            <span t-esc="'{0:,.2f}'.format(valor_cif)"/>
+                                            <br/>
+                                        </td>
+                                        <td class="text-right">
+<!--                                            <span t-esc="'%.2f'%(derecho_generales)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(derecho_generales)"/>
+                                            <br/>
+                                        </td>
+                                        <td class="text-right">
+<!--                                            <span t-esc="'%.2f'%(cuenta_registro)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(cuenta_registro)"/>
+                                            <br/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(almacen)"/>
+<!--                                            <span t-esc="'%.2f'%(almacen)"/>-->
+                                            <br/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(impuesto_isc)"/>
+<!--                                            <span t-esc="'%.2f'%(impuesto_isc)"/>-->
+<!--                                            <br/>-->
+                                        </td>
+                                        <td class="text-right">
+                                            <!--total-->
+                                            <span t-esc="'{0:,.2f}'.format(total_aux)"/>
+<!--                                            <span t-esc="'%.2f'%(total_aux)"/>-->
+                                            <br/>
+                                        </td>
+                                        <td class="text-right">
+
+                                            <span t-esc="'{0:,.4f}'.format(cost_unitario_aux)"/>
+<!--                                            <span t-esc="'%.2f'%(cost_unitario_aux)"/>-->
+                                            <!--costo unitario-->
+                                            <br/>
+
+                                        </td>
+                                        <td class="text-right">
+<!--                                            <span t-esc="'%.2f'%(costo_aux)"/>-->
+                                            <!--costo-->
+                                            <span t-esc="'{0:,.4f}'.format(costo_aux)"/>
+                                            <br/>
+                                        </td>
+
+                                    </tr>
+
+                                </t>
+                                <tr class="text-right" style="font-size: 10px">
+
+                                    <td></td>
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(cant)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(cant)"/>
+                                        </strong>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(cost_total)"/>-->
+                                             <span t-esc="'{0:,.2f}'.format(cost_total)"/>
+                                        </strong>
+                                    </td>
+<!--                                    <td>-->
+<!--                                        <strong><span>-</span>-->
+<!--&lt;!&ndash;                                            <span t-esc="'%.2f'%(total_dcto)"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <span t-esc="'{0:,.2f}'.format(total_dcto)"/>&ndash;&gt;-->
+<!--                                        </strong>-->
+
+<!--                                    </td>-->
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(insurance_total)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(insurance_total)"/>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(flete_total)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(flete_total)"/>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(total_cif_count)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(total_cif_count)"/>
+                                        </strong>
+
+                                    </td>
+                                    <td>
+<!--                                        <strong><span t-esc="'%.2f'%(cif_unitario_count)"/></strong>-->
+                                    </td>
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(valor_cif_count)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(valor_cif_count)"/>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(derecho_generales_total)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(derecho_generales_total)"/>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(cuenta_registro_total)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(cuenta_registro_total)"/>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(almacen_total)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(almacen_total)"/>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(impuesto_isc_total)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(impuesto_isc_total)"/>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+<!--                                            <span t-esc="'%.2f'%(total)"/>-->
+                                            <span t-esc="'{0:,.2f}'.format(total)"/>
+                                        </strong>
+                                    </td>
+                                    <td colspan="2">
+<!--                                        <strong><span t-esc="'%.4f'%(costo_count)"/></strong>-->
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+
+                        </table>
+                        <div class="row">
+                            <p></p>
+                        </div>
+                        <div class="row">
+                            <p></p>
+                        </div>
+
+                        <div class="row justify-content: center"
+                             style="margin-top: 50px; font-size: 16px; font-weight: bold; ">
+                            <div class="col-3"/>
+                            <div class="col-3" style="text-align: center; border-top: 2px solid grey;">Elaborado</div>
+                            <div class="col-1"/>
+                            <div class="col-3" style="text-align: center; border-top: 2px solid grey;">Autorizado por:
+                            </div>
+                        </div>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

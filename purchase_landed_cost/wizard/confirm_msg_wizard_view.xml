@@ -1,0 +1,49 @@
+<odoo>
+
+     <record model="ir.ui.view" id="picking_confirm_msg_wizard_view">
+        <field name="name">picking_confirm_msg_wizard.form</field>
+        <field name="model">confirm.msg</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Message" style="width:100px;">
+                <separator style="font-size: 14px; color: #333333;" string="No se ha definido una tasa de cambio. Presione Aceptar, para usar la tasa registrada en el sistema, o presione Cancelar, para digitar otra tasa." colspan="2"/>
+                <newline/>
+                    <separator colspan="3"/>
+                <footer>
+                    <button string="Aceptar"
+                            name="btn_approve_picking_import"
+                            type="object"
+                            class="oe_highlight"/>
+                    or
+                    <button string="Cancelar"
+                            class="oe_link"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+     <record model="ir.ui.view" id="picking_confirm_msg_wizard_view2">
+        <field name="name">picking_confirm_msg_wizard.form</field>
+        <field name="model">confirm.msg</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Message" style="width:100px;">
+                <separator style="font-size: 14px; color: #333333;" string="No se ha definido una tasa de cambio. Presione Aceptar, para usar la tasa registrada en el sistema, o presione Cancelar, para digitar otra tasa." colspan="2"/>
+                <newline/>
+                    <separator colspan="3"/>
+                <footer>
+                    <button string="Aceptar"
+                            name="btn_approve_picking_import_list"
+                            type="object"
+                            class="oe_highlight"/>
+                    or
+                    <button string="Cancelar"
+                            class="oe_link"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
