@@ -251,6 +251,7 @@ class PurchaseCostDistribution(models.Model):
 
     def write(self, vals):
         for command in vals.get("cost_lines", []):
+
             if command[0] in (2, 3, 5):
                 if command[0] == 5:
                     to_check = self.mapped("cost_lines").ids
@@ -376,7 +377,7 @@ class PurchaseCostDistribution(models.Model):
                         ) / total_available
         # Write the standard price, as SUPERUSER_ID, because a
         # warehouse manager may not have the right to write on products
-        #product.sudo().write({"standard_price": new_std_price})
+        product.sudo().write({"standard_price": new_std_price})
 
     # def action_done(self):
     #     self.ensure_one()
